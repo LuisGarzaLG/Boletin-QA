@@ -13,14 +13,7 @@
 <!-- Buscador de bulletinID -->
 <div class="floating-label enhanced">
   <i class="search-icon"></i>
-  <input 
-    formControlName="bulletinID" 
-    type="text" 
-    id="bulletinID" 
-    class="search-input" 
-    placeholder=" " 
-    required
-    (input)="onBulletinIdInput()" />
+  <input formControlName="bulletinID" type="text" id="bulletinID"  class="search-input" placeholder=" " required (input)="onBulletinIdInput()"/>
   <label for="bulletinID">Buscar por Bulletin ID</label>
 </div>
 
@@ -30,22 +23,9 @@
 </div>
 
         <!-- Botón Buscar deshabilitado si no hay plantilla -->
-        <button 
-          type="submit" 
-          [disabled]="!selectedForm || bulletinform.get('bulletinID')?.invalid" 
-          class="search-btn">
-          Buscar
-        </button>
+        <button type="submit"  [disabled]="!selectedForm || bulletinform.get('bulletinID')?.invalid" class="search-btn"> Buscar</button>
   
-        <button 
-          type="button" 
-          class="print-btn" 
-          (click)="printMainForm()" 
-          [disabled]="!selectedForm || detailsform.invalid">
-          Imprimir Boletín
-        </button>
-  
-        
+        <button type="button"  class="print-btn" (click)="printMainForm()"  [disabled]="!selectedForm || detailsform.invalid"> Imprimir Boletín </button> 
       </form>
     </div>
   </nb-card-body>

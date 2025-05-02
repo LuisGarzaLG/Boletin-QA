@@ -108,24 +108,24 @@ h2 {
   }
 
   /* CONTENEDORES */
-  .input-container {
+  .input-container-m2 {
     display: flex;
   
   }
   
-  .input-container label {
+  .input-container-m2 label {
     font-size: 16px;
     min-width: max-content;
     font-weight: bold;
   }
   
-  .input-container input{
+  .input-container-m2 input{
     flex-grow: 0;
     font-size: 16px;
     padding: 0 0 0 10px;
     color: #000 !important;
   }
-  .input-container textarea{
+  .input-container-m2 textarea{
     flex-grow: 1;
     font-size: 14px;
     padding: 0 0 0 5px;
@@ -323,6 +323,7 @@ h2 {
   .formularioPrincipal-card {
     background-color: transparent;
     border: 0px hidden;
+    background: transparent;
   }
   
   .margin {
@@ -333,6 +334,7 @@ h2 {
     margin: auto;
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.50);
+    border-radius: 0px !important;
   }
 
   

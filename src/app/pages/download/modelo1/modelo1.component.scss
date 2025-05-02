@@ -281,6 +281,7 @@ h2 {
   .formularioPrincipal-card {
     background-color: transparent;
     border: 0px hidden;
+    background: transparent;
   }
   
   .margin {
@@ -291,5 +292,6 @@ h2 {
     margin: auto;
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.50);
+    border-radius: 0px !important;
   }
  

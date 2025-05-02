@@ -243,7 +243,7 @@ if (MP && MP.length > 0) {
     case 'form1':
       styles = 
       `
-    /* TÍTULO */
+/* TÍTULO */
 h2 {
   margin-top: 0;
     font-size: 40px;
@@ -325,10 +325,6 @@ h2 {
     overflow-wrap: none; /* Rompe las palabras largas */
     word-break: break-word;    /* Corta las palabras muy largas si es necesario */
   }
-
-  
-  
-  
   /* CONTENEDORES */
   .input-container-m1{
     display: flex;
@@ -438,8 +434,7 @@ h2 {
     height: auto;
     width: 100%;
     box-sizing: border-box;
-    margin-top: -16px;
-
+    margin-top: -12px;
   }
   
   /* ÁREAS Y CRITERIOS */
@@ -531,6 +526,7 @@ h2 {
   .formularioPrincipal-card {
     background-color: transparent;
     border: 0px hidden;
+    background: transparent;
   }
   
   .margin {
@@ -541,8 +537,8 @@ h2 {
     margin: auto;
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.50);
+    border-radius: 0px !important;
   }
- 
  
   @media print {
     * {
@@ -665,24 +661,24 @@ h2 {
   }
 
   /* CONTENEDORES */
-  .input-container {
+  .input-container-m2 {
     display: flex;
   
   }
   
-  .input-container label {
+  .input-container-m2 label {
     font-size: 16px;
     min-width: max-content;
     font-weight: bold;
   }
   
-  .input-container input{
+  .input-container-m2 input{
     flex-grow: 0;
     font-size: 16px;
     padding: 0 0 0 10px;
     color: #000 !important;
   }
-  .input-container textarea{
+  .input-container-m2 textarea{
     flex-grow: 1;
     font-size: 14px;
     padding: 0 0 0 5px;
@@ -880,6 +876,7 @@ h2 {
   .formularioPrincipal-card {
     background-color: transparent;
     border: 0px hidden;
+    background: transparent;
   }
   
   .margin {
@@ -890,23 +887,20 @@ h2 {
     margin: auto;
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.50);
+    border-radius: 0px !important;
   }
 
   
-  
-  
-    @media print {
+ 
+  @media print {
     * {
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
       color-adjust: exact !important;
     }
   }
-    
- `
- ;break;
-    default:
-      styles = `body { font-family: sans-serif; }`;
+
+`;
       break;
   }
 //#endregion
