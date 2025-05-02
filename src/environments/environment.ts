@@ -1,16 +1,18 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+import { Env, version, appKey, platformId,token } from "./env";
 
-export const environment = {
-  production: false
-};
+export const api_endpoint = "https://localhost:7177";//api que uso para obtener los registros que quiero
+//xport const api_endpoint = "https://mxrexvs36:446";
+export const api_security_endpoint = "https://mxrexvs36:451/api/v1/";
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+export const env : Env = {
+    version: version,
+    production : false,
+    apiUrl : api_endpoint,
+    dashboardApi: "http://mxrexsv18/dashboard/api/v1/",
+    securityApi: api_security_endpoint,
+    appKey : appKey,
+    currentUserToken: token,
+    platformId: platformId,
+    cs_orgId: "",
+    cs_merchantId: ""
+}

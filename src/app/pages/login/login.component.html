@@ -1,0 +1,35 @@
+<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="container m-0" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">
+    <h1 id="title" class="title">Login</h1>
+    <p class="sub-title">Hello!, Log in with your username</p>
+  
+    <form [formGroup]="Login" (submit)="submit()">
+  
+      <div class="form-control-group">
+        <label class="label">User Name:</label>
+        <input nbInput fullWidth formControlName="userName" placeholder="User Name" fieldSize="large" type="text"/>
+        <ng-container *ngIf="Login.get('userName')?.invalid && Login.get('userName')?.touched">
+          <p class="caption status-danger" *ngIf="Login.get('userName')?.errors?.required"> User Name is required! </p>
+        </ng-container>
+      </div>
+      <div class="form-control-group">
+        <label class="label" for="input-password">Password:</label>
+        <input nbInput fullWidth type="password" placeholder="Password" fieldSize="large" formControlName="password"/>
+        <ng-container *ngIf="Login.get('password')?.invalid && Login.get('password')?.touched">
+          <p class="caption status-danger" *ngIf="Login.get('password')?.errors?.required"> Password is required! </p>
+        </ng-container>
+      </div>
+      <div class="custom-checkbox-container">
+        <label>
+          <input type="checkbox" formControlName="rememberMe" class="custom-checkbox">
+          <span class="custom-checkbox-label">Remember me</span>
+        </label>
+        <br><br>
+      </div>
+      
+      <div class="form-container">
+        <button [disabled]="Login.invalid" nbButton fullWidth class="login-btn" status="primary" size="large"> Log In </button>
+      </div>
+    </form>
+  </div>
