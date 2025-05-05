@@ -4,9 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app.-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbMenuModule, NbIconModule, NbToastrModule, NbDatepickerModule, NbInputModule, NbSelectModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbMenuModule, NbIconModule, NbToastrModule, NbDatepickerModule, NbInputModule, NbSelectModule , NbOptionModule} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NbAuthModule, NbAuthService } from '@nebular/auth';
 import { PagesRoutingModule } from './pages/pages-routing.module';
 import { Ng2CompleterModule } from 'ng2-completer';
@@ -39,6 +39,8 @@ import { ButtonRenderComponent } from './pages/home/button-render/button-render.
     NbLayoutModule,
     NbEvaIconsModule,
     NbSelectModule,
+    NbOptionModule,
+    FormsModule,
     NbAuthModule.forRoot({
       strategies: [],
       forms: {},

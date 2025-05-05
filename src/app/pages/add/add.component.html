@@ -9,13 +9,16 @@
           <input type="text" nbInput formControlName="bulletinID" placeholder=" " class="form-control"/>
           <label for="bulletinID" class="floating-label" #bulletinIDInput>Número de Boletín</label>
         </div>
-    
+
         <div class="input-container">
-          <nb-select [class.filled]="bulletinform.controls.area.value" formControlName="area" placeholder=" " class="form-control">
-            <nb-option *ngFor="let area of areas" [value]="area">{{ area }}</nb-option>
-          </nb-select>
+          <select formControlName="area" id="area" (change)="onSelectChange()" class="form-control" required>
+            <option value="" disabled selected hidden></option>
+            <option *ngFor="let area of areas" [value]="area">{{ area }}</option>
+          </select>
           <label for="area" class="floating-label">Area</label>
         </div>
+        
+              
 
         <div class="input-container">
           <input type="text" nbInput formControlName="failureName" placeholder=" " class="form-control"/>

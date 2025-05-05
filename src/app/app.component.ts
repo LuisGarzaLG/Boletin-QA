@@ -35,6 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isAuthenticated = authStatus;
       }
     );
+    
 
     this.rolesSubscription = this.authService.getRolesObservable().subscribe((roles: string[]) => {
       this.userRoles = roles;

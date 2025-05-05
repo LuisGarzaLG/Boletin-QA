@@ -4,7 +4,7 @@
     <!-- Formulario de búsqueda -->
     <form [formGroup]="searchForm">
       <div class="form-container">
-        <div class="input-row">
+        <div class="input-row-3">
           <div class="input-container">
             <input type="text" nbInput formControlName="bulletinID" placeholder=" " class="form-control" (keydown.enter)="onSearchBoth()"/>
             <label for="bulletinID" class="floating-label">Número de Boletín</label>
@@ -42,7 +42,7 @@
         <nb-card class="info-card" *ngIf="detailsData">
           <nb-card-header>Detalles del Boletín</nb-card-header>
           <nb-card-body>
-            <p><strong>ID:</strong> {{detailsData.bulletinID}}</p>
+            
             <p><strong>Descripción:</strong> {{ detailsData.description }}</p>
             <p><strong>Acciones:</strong> {{ detailsData.actions }}</p>
             <p><strong>Detalles de Retrabajo:</strong> {{ detailsData.reworkDetails }}</p>

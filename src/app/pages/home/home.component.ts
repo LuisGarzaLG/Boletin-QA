@@ -112,13 +112,13 @@ const currentUser = sessionStorage.getItem('currentUser');
 if (currentUser) {
   const user = JSON.parse(currentUser);
   const email = user.email;
-  console.log('Email:', email);
+  //console.log('Email:', email);
 }
 
 const rolesStorage = sessionStorage.getItem('roles');
 if (rolesStorage) {
   this.userRoles = JSON.parse(rolesStorage); // ["BulletinQA", "ESDManager"]
-  console.log('Roles:', this.userRoles);
+  //console.log('Roles:', this.userRoles);
 
     setTimeout(() => {
       const textareas = document.querySelectorAll('textarea');

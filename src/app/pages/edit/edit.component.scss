@@ -25,7 +25,11 @@
   width: 100%;
 }
 
+
 .input-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 20rem; /* o el tamaño que desees */
   position: relative;
   margin-top: 10px;
 }
@@ -33,7 +37,7 @@
 
 /* Estilo para los inputs */
 .input-container input {
-  width: 100%;
+  width: 100% !important;
   padding: 12px 12px 12px 8px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -55,7 +59,7 @@
 /* El comportamiento flotante cuando el input tiene valor o está enfocado */
 .input-container input:focus + label,
 .input-container input:not(:placeholder-shown) + label {
-  top: -16px;
+  top: -20px;
   left: 14px;
   font-size: 16px;
   color: #3366ff;
@@ -120,6 +124,10 @@
   display: block;
   margin: 10px auto 0 auto;
   width: 200px;
+  border-radius: 10px !important;
+}
+.status-success{
+  border-radius: 10px !important;
 }
 
 .input-container-2 {

@@ -28,8 +28,15 @@ export class AddComponent {
   @ViewChild('qualityPhotoInput1') qualityPhotoInput1!: ElementRef;
   @ViewChild('defectPhotoInput1') defectPhotoInput1!: ElementRef;
 
-  areas: string[] = ['F-AX1', 'F-AX2', 'F-AX3', 'F-AX4', 'BPA-1', 'BPA-2', 'BPA-3', 'Reflash', 'Network', 'S4X', 'COE', 'SRL', 'LCS', 'Incoming', 'PSC'];
-
+  
+  areas: string[] = ['F-AX1', 'F-AX2', 'F-AX3', 'F-AX4','BPA-1', 'BPA-2', 'BPA-3','Reflash', 'Network', 'S4X', 'COE','SRL', 'LCS', 'Incoming', 'PSC'];
+  
+    // Método que se ejecuta cuando el valor del select cambia
+    onSelectChange(): void {
+      //console.log('Seleccionado:', this.selectedArea);
+      // Aquí puedes ejecutar cualquier lógica adicional, como actualizar otros valores en el formulario
+    }
+  
   selectedArea: string = '';
 
   // Previews de las fotos
@@ -47,7 +54,7 @@ export class AddComponent {
   ) {
     this.bulletinform = this.fb.group({
       bulletinID: ['', Validators.required],
-      area: [''],
+      area: ['',Validators.required],
       partNumber: [''],
       startDate: [''],
       endDate: [''],
@@ -102,7 +109,7 @@ export class AddComponent {
       return;
     }
 
-    let email = ''; // declaras fuera del if
+    let email = '';
 
     const currentUser = sessionStorage.getItem('currentUser');
     if (currentUser) {
@@ -150,8 +157,8 @@ export class AddComponent {
 
 
 
-  console.log(fullBulletin);
-  console.log(photoupload);
+  //console.log(fullBulletin);
+  //console.log(photoupload);
     
   // Aquí preguntas antes de enviar
   const result = await Swal.fire({

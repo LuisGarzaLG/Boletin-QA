@@ -43,6 +43,7 @@
   transition: padding 0.3s ease, background-color 0.3s ease;
   background-color: #fff;
   border-radius: 20px !important;
+  padding: 10px 20px 20px 20px;
 }
 
 
@@ -52,34 +53,33 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  padding: 10px;
   width: 100%;
 }
 
-/* Input Row centrado */
-.input-row {
+.input-row-3 {
   display: flex;
   justify-content: center;
   width: 100%;
-  max-width: 600px;
-  margin: auto;
 }
 
-/* Input Container */
 .input-container {
-  position: relative;
   width: 100%;
+  max-width: 20rem; /* Ajusta este valor según tu preferencia */
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
+
 
 .input-container input {
-  padding: 12px;
-  width: 220px;
-  pointer-events: all;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  width: 100%;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 12px !important;
+  pointer-events: all !important ;
+  border: 1px solid #ccc !important;
+  border-radius: 6px !important;
+  font-size: 16px !important;
+  width: 100% !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 .input-container input:focus {
@@ -90,7 +90,7 @@
 
 .input-container label {
   position: absolute;
-  left: 20px;
+  left: 5px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
@@ -112,7 +112,6 @@
 .button-container {
   display: flex;
   justify-content: center;
-  margin-top: 25px;
 }
 
 button {
@@ -124,6 +123,8 @@ button {
   font-weight: bold !important;
   cursor: pointer !important;
   transition: background-color 0.3s ease, transform 0.2s ease !important;
+  text-transform: uppercase !important;
+    width: 175px !important;
 }
 
 button:hover {

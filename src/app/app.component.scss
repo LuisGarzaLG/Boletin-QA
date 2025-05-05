@@ -66,5 +66,19 @@ span{
   margin: 10px;
   font-size: 20px;
   font-family: sans-serif;
+  text-transform: capitalize;
 }
-  
+.sidebar-note {
+  position: absolute;
+  bottom: 0;
+  background-color: #ffffff;
+  border-radius: 5px;
+  overflow-y: auto;
+  max-height: 80vh;
+  margin-top: auto;
+}
+.version{
+  font-size: 10px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
