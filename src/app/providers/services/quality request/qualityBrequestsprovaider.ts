@@ -201,7 +201,7 @@ export class qualityrequestsprovaider extends BaseProvider {
 
 
 
-    public async updateBulletinData(bulletin: CreateBulletinDto): Promise<void> {
+    public async updateBulletinData(bulletin: CreateBulletinDto2): Promise<void> {
         if (!bulletin.bulletinID) {
             console.error('El bulletinID no es válido');
             return;

@@ -85,25 +85,30 @@ export class EditComponent {
           reworkDetails: this.bulletin.problemsDetails?.reworkDetails
         }
     };
-
-    // Llama a la API para actualizar el boletín
-    this.qualityrequestsprovaider.updateBulletinData(bulletinData).then(() => {
+         console.log('Enviando a la API:', bulletinData);
+        this.qualityrequestsprovaider.updateBulletinData(bulletinData).then(() => {
       
         this.notificationService.info('Boletín actualizado correctamente');
         
         // Limpiar los campos después de la actualización
         this.bulletin = {
-            bulletinID: '',
-            area: '',
-            partNumber: '',
-            startDate: '',
-            endDate: '',
-            customer: '',
-            supplier: '',
-            name: '',
-            failureName: '',
-            previousID: ''
+          bulletinID: '',
+          area: '',
+          partNumber: '',
+          startDate: '',
+          endDate: '',
+          customer: '',
+          supplier: '',
+          name: '',
+          failureName: '',
+          previousID: '',
+          problemsDetails: {
+            description: '',
+            actions: '',
+            reworkDetails: ''
+          }
         };
+        
         
         // Limpiar el campo del buscador
         this.bulletinID = '';

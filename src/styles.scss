@@ -89,3 +89,9 @@ input[_ngcontent-hco-c306] {
 [dir=ltr] .nb-theme-corporate ng2-smart-table table tr.ng2-smart-titles th {
   padding-right: 5px;
 }
+
+
+.nb-theme-corporate [nbInput].size-medium:not(.input-full-width) {
+  max-width: 100%;
+  resize: none;
+}

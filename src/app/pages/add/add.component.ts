@@ -154,11 +154,8 @@ export class AddComponent {
       defectPhotos: this.defectPhotosBase641
     }
 
-
-
-
-  //console.log(fullBulletin);
-  //console.log(photoupload);
+  console.log(fullBulletin);
+  console.log(photoupload);
     
   // Aquí preguntas antes de enviar
   const result = await Swal.fire({
