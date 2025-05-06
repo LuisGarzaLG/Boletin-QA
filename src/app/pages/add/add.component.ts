@@ -92,14 +92,13 @@ export class AddComponent {
   async onSubmit(): Promise<void> {
     // Validar si los formularios son válidos
     if (!this.bulletinform.valid || !this.detailsform.valid || !this.photoupload.valid) {
-     // this.notificationservice.warning('Por favor, llena todos los campos requeridos');
+     this.notificationservice.warning('Por favor, llena todos los campos requeridos');
       return;
     }
-    
-  
     // Validación de los detalles
     const detailsData = this.detailsform.value;
   
+    
     if (!detailsData.description) {
       this.notificationservice.warning('La descripción es requerida');
       return;
