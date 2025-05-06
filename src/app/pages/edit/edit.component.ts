@@ -39,6 +39,13 @@ export class EditComponent {
   searchBulletin() {
     this.qualityrequestsprovaider.GetBulletinBy(this.bulletinID).then(data => {
       if (data) {
+        if (data.startDate) {
+          data.startDate = data.startDate.substring(0, 10);
+        }
+        if (data.endDate) {
+          data.endDate = data.endDate.substring(0, 10);
+        }
+        
         this.bulletin = data;  // Se asigna el boletín encontrado a 'bulletin'
       } else {
         this.notificationService.warning('Boletín no encontrado');
@@ -47,7 +54,9 @@ export class EditComponent {
       console.error('Error al buscar el boletín:', err);
       this.notificationService.error('Ocurrió un error al buscar el boletín');
     });
+    
   }
+  
 
   // Función para actualizar los datos del boletín
   async updateBulletin() {
@@ -108,6 +117,7 @@ export class EditComponent {
             reworkDetails: ''
           }
         };
+        
         
         
         // Limpiar el campo del buscador
