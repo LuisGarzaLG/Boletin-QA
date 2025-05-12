@@ -1,0 +1,97 @@
+@import 'themes';
+
+@import '~@nebular/theme/styles/globals';
+
+@include nb-install() {
+@include nb-theme-global();
+};
+
+input[_ngcontent-hco-c306] {
+  padding: 12px !important;
+  pointer-events: all !important;
+  border: 1px solid #ccc !important;
+  border-radius: 6px !important;
+  font-size: 16px !important;
+  width: 100% !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+  max-width: 100% !important;
+}
+
+
+.nb-theme-corporate nb-tabset .tab.active .tab-link::before {
+    background: linear-gradient(145deg, #20a0c0d5, #15c41ea4)
+  }
+
+/* Estilo para el tab activo */
+.nb-theme-corporate nb-tabset .tab.active .tab-link {
+    background-image: linear-gradient(145deg, #20a0c0d5, #15c41ea4);
+    -webkit-background-clip: text; 
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 3px;
+  }
+
+  .nb-theme-corporate p, .nb-theme-corporate .paragraph {
+    color: #000;
+    font-family: Open Sans, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 10px;
+    text-align: justify;
+}
+.nb-theme-corporate ng2-smart-table table tr th, .nb-theme-corporate ng2-smart-table table tr th a {
+  font-family: Open Sans, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.25rem;
+  color: #c90000;
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.nb-theme-corporate ng2-smart-table thead tr.ng2-smart-filters th .ng2-smart-filter input{
+  font-weight: bold;
+  font-size: 11.75px;
+  letter-spacing: 1.1px;
+  padding: .375em .75em;
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  text-align: center;
+  color: black;
+}
+
+.nb-theme-corporate ng2-smart-table table tr td {
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.25rem;
+  color: #000;
+  letter-spacing: 1.05px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.nb-theme-corporate ng2-smart-table table tr th, .nb-theme-corporate ng2-smart-table table tr td {
+  position: relative;
+  padding: 5px;
+  border: 1px dashed #dbdbdb;
+  vertical-align: middle;
+}
+
+.nb-theme-corporate ng2-smart-table tbody tr.selected, .nb-theme-corporate ng2-smart-table tbody tr:hover {
+  background: linear-gradient(145deg, #20a0c052, #15c41e4f) !important;
+}
+.nb-theme-corporate ng2-smart-table table tr.ng2-smart-titles th {
+  padding: 10px 5px;
+}
+[dir=ltr] .nb-theme-corporate ng2-smart-table table tr.ng2-smart-titles th {
+  padding-right: 5px;
+}
+
+
+.nb-theme-corporate [nbInput].size-medium:not(.input-full-width) {
+  max-width: 100%;
+  resize: none;
+}

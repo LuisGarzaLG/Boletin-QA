@@ -1,0 +1,31 @@
+<nb-layout>
+  <nb-layout-header fixed>
+    <div class="header-container">
+      <span class="header-title" (click)="toggleSidebar()">QA
+      <img [src]="logo" alt="Landis+Gyr" class="img-logo"></span>
+    </div>
+    
+
+    <nb-actions size="medium" class="user-actions">
+      <nb-action>
+        <span>{{ currentUserName }}</span>
+      </nb-action>
+      <nb-action (click)="navigateToLogin()">
+        <nb-icon icon="person-outline" [style.color]="'white'"></nb-icon>
+      </nb-action>
+    </nb-actions>
+  </nb-layout-header>
+
+  <nb-sidebar tag="menu-sidebar" [state]="isSidebarExpanded ? 'expanded' : 'collapsed'" class="custom-sidebar">
+    <nb-menu  [items]="menuItems"></nb-menu>
+    <div class="sidebar-note">
+      <p class="version">Version 1</p>
+    </div>
+    
+  </nb-sidebar>
+
+
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>

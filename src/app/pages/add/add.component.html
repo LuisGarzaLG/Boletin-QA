@@ -1,0 +1,151 @@
+<nb-card>
+  <nb-card-header class="titulo">Añadir Boletin</nb-card-header>
+  <nb-card-body>
+
+    <!-- Formulario para el boletín -->
+    <form [formGroup]="bulletinform">
+      <div class="input-row">
+        <div class="input-container">
+          <input type="text" nbInput formControlName="bulletinID" placeholder=" " class="form-control"/>
+          <label for="bulletinID" class="floating-label" #bulletinIDInput>Número de Boletín</label>
+        </div>
+
+        <div class="input-container">
+          <select formControlName="area" id="area" (change)="onSelectChange()" class="form-control" required>
+            <option value="" disabled selected hidden></option>
+            <option *ngFor="let area of areas" [value]="area">{{ area }}</option>
+          </select>
+          <label for="area" class="floating-label">Area</label>
+        </div>
+        
+              
+
+        <div class="input-container">
+          <input type="text" nbInput formControlName="failureName" placeholder=" " class="form-control"/>
+          <label for="failureName" class="floating-label">Modo de Fallo</label>
+        </div>
+
+        <div class="input-container">
+          <input type="text" nbInput formControlName="name" placeholder=" " class="form-control"/>
+          <label for="name" class="floating-label">Nombre</label>
+        </div>
+        <div class="input-container">
+          <input type="date" nbInput formControlName="startDate" placeholder=" " class="form-control"/>
+          <label for="startDate" class="floating-label">Fecha de Inicio</label>
+        </div>
+        <div class="input-container">
+          <input type="text" nbInput formControlName="customer" placeholder=" " class="form-control"/>
+          <label for="customer" class="floating-label">Cliente</label>
+        </div>
+    
+        <div class="input-container">
+          <input type="text" nbInput formControlName="supplier" placeholder=" " class="form-control"/>
+          <label for="supplier" class="floating-label">Proveedor</label>
+        </div>
+        <div class="input-container">
+          <input type="text" nbInput formControlName="partNumber" placeholder=" " class="form-control"/>
+          <label for="partNumber" class="floating-label">Número de Parte</label>
+        </div>
+        <div class="input-container">
+          <input type="text" nbInput formControlName="previousID" placeholder=" " class="form-control"/>
+          <label for="previousID" class="floating-label">ID Previo</label>
+        </div>
+        <div class="input-container">
+          <input type="date" nbInput formControlName="endDate" placeholder=" " class="form-control"/>
+          <label for="endDate" class="floating-label">Fecha de Fin</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Formulario para los detalles -->
+    <form [formGroup]="detailsform" (ngSubmit)="onSubmit()">
+      <div class="input-row">
+        <div class="input-container-2">
+          <textarea nbInput formControlName="description" placeholder=" " class="form-control-2"></textarea>
+          <label for="descripcion-problema" class="floating-label">Descripción del Problema</label>
+        </div>
+    
+        <div class="input-container-2">
+          <textarea nbInput formControlName="actions" placeholder=" " class="form-control-2"></textarea>
+          <label for="actions" class="floating-label">Acciones</label>
+        </div>
+    
+        <div class="input-container-2">
+          <textarea nbInput formControlName="reworkDetails" placeholder=" " class="form-control-2"></textarea>
+          <label for="reworkDetails" class="floating-label">Detalles de ReTrabajo</label>
+        </div>
+
+        <!-- Foto de calidad (aceptable) -->
+        <div class="left-photo">
+          <div class="input-file-container">
+            <input type="file" id="qualityPhotos" accept="image/*" #qualityPhotoInput (change)="onImageSelected($event, 'qualityPhotos')" />
+            <label class="floating-label-2">Fotos de Calidad (Aceptable)</label>
+          </div>
+          <div *ngIf="imagePreviews.qualityPhotos">
+            <img [src]="imagePreviews.qualityPhotos" alt="Foto de Calidad" class="image-preview" />
+          </div>
+        </div> 
+        
+        <!-- Foto de defecto -->
+        <div class="right-photo">
+          <div class="input-file-container">
+            <input type="file" id="defectPhotos" accept="image/*" #defectPhotoInput (change)="onImageSelected($event, 'defectPhotos')" />
+            <label class="floating-label-2">Fotos de Calidad (Defecto)</label>
+          </div>
+          <div *ngIf="imagePreviews.defectPhotos">
+            <img [src]="imagePreviews.defectPhotos" alt="Foto de Defecto" class="image-preview" />
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button class="btn-env" type="submit" outline status="info" [disabled]="detailsform.invalid">Enviar</button>
+        </div>
+      </div>
+    </form>
+
+  </nb-card-body>
+</nb-card>
+
+
+<nb-card>
+  <nb-card-header class="titulo">Añadir Más Fotos</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="photoupload" (ngSubmit)="onSubmit()">
+      <div class="input-row">
+
+        <!-- Foto de calidad adicional -->
+        <div class="left-photo">
+          <div class="input-file-container">
+            <input type="file" id="qualityPhotos1" accept="image/*"
+                   (change)="onMoreImage($event, 'qualityPhotos1')" #qualityPhotoInput1 />
+            <label class="floating-label-2">Fotos de Calidad (Aceptable)</label>
+          </div>
+          <div *ngIf="imagePreviews.qualityPhotos1">
+            <img [src]="imagePreviews.qualityPhotos1" alt="Foto de Calidad" class="image-preview" />
+          </div>
+        </div>
+
+        <!-- Foto de defecto adicional -->
+        <div class="right-photo">
+          <div class="input-file-container">
+            <input type="file" id="defectPhotos1" accept="image/*"
+                   (change)="onMoreImage($event, 'defectPhotos1')" #defectPhotoInput1 />
+            <label class="floating-label-2">Fotos de Defecto</label>
+          </div>
+          <div *ngIf="imagePreviews.defectPhotos1">
+            <img [src]="imagePreviews.defectPhotos1" alt="Foto de Defecto" class="image-preview" />
+          </div>
+        </div>
+      </div>
+      <div class="input-rows">
+        <div class="input-container">
+          <input type="text" nbInput formControlName="bulletinID" placeholder=" " class="form-control"/>
+          <label for="bulletinID" class="floating-label" #bulletinIDInput>Número de Boletín</label>
+        </div>
+      </div>
+      <div class="button-container">
+        <button class="btn-env" type="button" outline status="info" (click)="submitAdditionalPhotos()">Enviar</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

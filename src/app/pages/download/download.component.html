@@ -1,0 +1,51 @@
+<nb-card-body class="search-container">
+    <div class="search-wrapper">
+      <form [formGroup]="bulletinform" (ngSubmit)="onSearchBoth()" class="search-form">
+        
+        
+        <!-- Botones para seleccionar plantillas -->
+<div>
+  <label for="text" class="text">Selecciona Algún Boletín</label><br>
+  <button nbButton type="button" (click)="selectForm('form1')" class="form-btn">Boletín 1</button>
+  <button nbButton type="button" (click)="selectForm('form2')" class="form-btn">Boletín 2</button>
+</div>
+
+<!-- Buscador de bulletinID -->
+<div class="floating-label enhanced">
+  <i class="search-icon"></i>
+  <input formControlName="bulletinID" type="text" id="bulletinID"  class="search-input" placeholder=" " required (input)="onBulletinIdInput()"/>
+  <label for="bulletinID">Buscar por Bulletin ID</label>
+</div>
+
+<!-- ADVERTENCIA si no se seleccionó boletín -->
+<div *ngIf="showTemplateWarning" class="template-warning">
+  ⚠️ Debes seleccionar un boletín antes de buscar.
+</div>
+
+        <!-- Botón Buscar deshabilitado si no hay plantilla -->
+        <button type="submit"  [disabled]="!selectedForm || bulletinform.get('bulletinID')?.invalid" class="search-btn"> Buscar</button>
+  
+        <button type="button"  class="print-btn" (click)="printMainForm()"  [disabled]="!selectedForm || detailsform.invalid"> Imprimir Boletín </button> 
+      </form>
+    </div>
+  </nb-card-body>
+  
+  <!-- Mostrar formulario según plantilla -->
+  <app-modelo1
+  *ngIf="selectedForm === 'form1'" 
+  [bulletinform]="bulletinform"
+  [detailsform]="detailsform"
+  [qualityPhotosBase64]="qualityPhotosBase64"
+  [defectPhotosBase64]="defectPhotosBase64"
+  (searchBoth)="onSearchBoth()"
+></app-modelo1>
+<app-modelo2
+  *ngIf="selectedForm === 'form2'"
+  [bulletinform]="bulletinform"
+  [detailsform]="detailsform"
+  [qualityPhotosBase64]="qualityPhotosBase64"
+  [defectPhotosBase64]="defectPhotosBase64"
+  [qualityPhotosBase641]="qualityPhotosBase641"
+  [defectPhotosBase641]="defectPhotosBase641"
+  (searchBoth)="onSearchBoth()"
+></app-modelo2>

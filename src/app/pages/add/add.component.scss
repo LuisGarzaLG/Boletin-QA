@@ -1,0 +1,445 @@
+nb-card {
+  box-sizing: border-box;
+  background: linear-gradient(to bottom right, #fff, #fff); /* Fondo con leve gradiente */
+  border-radius: 20px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra suave y difusa */
+  border: 1px solid #e0e0e0; /* Borde sutil */
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+
+
+
+.nb-card-body {
+  padding: 20px;
+  text-align: left;
+  background-color: transparent;
+  border-radius: 16px;
+}
+
+.titulo{
+  text-align: center;
+  font-size: 20px !important;
+  color: #f00 !important;
+}
+
+/* Botón */
+button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px; /* Puedes ajustar el tamaño del botón si quieres */
+}
+
+/* Fila de inputs */
+.input-row {
+  display: flex;
+  flex-wrap: wrap; /* Permite que se ajusten en pantallas pequeñas */
+  gap: 10px;
+  width: 100%;
+}
+.input-rows{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+
+/* Estilo para los inputs generales */
+.input-container {
+  position: relative;
+  margin-top: 10px;
+  flex: 0 0 345px; /* Toma todo el espacio disponible equitativamente */
+  width: 100%; /* Previene inputs demasiado pequeños en pantallas chicas */
+}
+
+.input-container input {
+  width: 100%;
+  padding: 12px 12px 12px 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px !important;
+}
+
+
+.input-container select {
+  width: 100%;
+  padding: 10px 12px 10px 0px;
+  font-size: 16px;
+  border: 1px solid #e4e9f2;
+  border-radius: 10px;
+  background-color: #f7f9fc;
+}
+
+.input-container select:focus + .floating-label,
+.input-container select:valid + .floating-label {
+  top: -24px;
+  left: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3366ff;
+}
+
+option {
+  border-color: #e4e9f2;
+  border-radius: 10px;
+  background-color: #f7f9fc87;
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;    
+}
+
+  
+
+.floating-label {
+  position: absolute;
+  pointer-events: none;
+  top: 12px;
+  left: 12px;
+  transition: 0.2s ease all;
+  color: #666;
+  padding: 0 4px;
+}
+
+.input-container input:focus + .floating-label,
+.input-container input:not(:placeholder-shown) + .floating-label {
+  top: -24px;
+  left: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3366ff;
+}
+
+/* Estilo para las áreas de texto */
+.input-container textarea {
+  width: 100%;
+  min-width: 100%;
+  height: 55px; /* Deja que se ajuste al contenido */
+  padding: 12px 12px 12px 8px;
+  font-size: 16px;
+  font-family: sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical; /* Permite redimensionar verticalmente */
+  
+}
+
+/* Etiqueta flotante */
+.input-container textarea:focus + .floating-label,
+.input-container textarea:not(:placeholder-shown) + .floating-label {
+  top: -24px;
+  left: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3366ff;
+  
+}
+
+
+
+/* Estilo para el input de tipo file */
+.input-container input[type="file"] {
+  width: 100%; /* Asegura que el input ocupe todo el ancho del contenedor */
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Etiqueta flotante para el campo de archivo */
+.input-container input[type="file"] + .floating-label {
+  position: absolute;
+  pointer-events: none;
+  top: 12px;
+  left: 12px;
+  transition: 0.2s ease all;
+  color: #666;
+  padding: 0 4px;
+}
+
+/* Ajustes cuando el campo de archivo tiene foco o contenido */
+.input-container input[type="file"]:focus + .floating-label,
+.input-container input[type="file"]:not(:placeholder-shown) + .floating-label {
+  top: -24px;
+  left: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3366ff;
+}
+
+/* Fila de inputs en la parte baja (para los textarea) */
+.input-container {
+  position: relative;
+  margin-top: 20px; /* Separación entre las áreas de texto */
+  width: 100%; /* Asegura que cada input ocupe todo el ancho disponible */
+  display: block; /* Hace que los elementos se apilen verticalmente */
+}
+
+/* Ajustes de la sección de detalles del problema */
+.input-row-2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Estilo específico para los textarea en la sección de detalles del problema */
+.input-container-2 {
+  margin-top: 20px;
+  position: relative;
+  width: 100%;
+}
+
+.input-container-2 textarea {
+  min-width: 100%;
+  height: 100px;
+  padding: 12px 12px 12px 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  overflow: auto;
+  
+}
+
+/* Etiquetas flotantes para los textarea de la sección de detalles del problema */
+.input-container-2 textarea:focus + .floating-label,
+.input-container-2 textarea:not(:placeholder-shown) + .floating-label {
+  top: -24px;
+  left: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3366ff;
+}
+
+.floating-label {
+  position: absolute;
+  pointer-events: none;
+  top: 12px;
+  left: 12px;
+  transition: 0.2s ease all;
+  color: #666;
+  padding: 0 4px;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  
+}
+
+
+
+
+
+
+
+/* Estilo general para el nb-select */
+.input-container nb-select {
+  min-width: 100%;
+  border-radius: 10px;
+  position: relative;
+  height: 100%; /* Mantener la misma altura que los inputs */
+  box-sizing: border-box; /* Asegura que el tamaño total no cambie */
+  display: flex;
+}
+
+/* Etiqueta flotante */
+.input-container .floating-label {
+  position: absolute;
+  pointer-events: none;
+  top: 12px;
+  left: 12px;
+  transition: 0.2s ease all;
+  color: #666;
+  padding: 0 4px;
+  font-size: 16px;
+}
+
+/* Estilo cuando no tiene valor, actúa como un placeholder */
+.input-container nb-select:not(.filled) + .floating-label {
+  top: 12px;
+  left: 12px;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Estilo cuando tiene un valor (clase 'filled') o está enfocado */
+.input-container nb-select.filled + .floating-label,
+.input-container nb-select:focus + .floating-label {
+  top: -24px;
+  left: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3366ff;
+}
+
+
+
+
+
+
+
+
+
+.input-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  column-gap: 10px;
+  width: 100%;
+  margin: 0; /* Aseguramos que no haya márgenes extra */
+}
+
+/* Para el input-container de "Area", lo hacemos más ancho */
+.input-container.wide-select {
+  flex: 1;  /* Esto hará que el "Área" ocupe todo el espacio disponible */
+  width: auto;
+  margin-bottom: 0; /* Elimina espacio extra debajo del campo */
+}
+
+
+/* Ajustes adicionales para labels flotantes */
+.input-container .floating-label {
+  position: absolute;
+  pointer-events: none;
+  top: 12px;
+  left: 12px;
+  font-size: 16px;
+  color: #666;
+  transition: 0.2s ease all;
+  padding: 0 4px;
+}
+
+.input-container .floating-label.filled {
+  top: -20px;
+  left: 8px;
+  font-size: 12px;
+  color: #3366ff;
+}
+
+
+
+
+
+/* Estilo general para los campos de tipo archivo */
+.input-file-container {
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  margin-top: 10px;
+}
+
+/* Estilo para los inputs de tipo file */
+.input-file-container input[type="file"] {
+  width: 100%; /* Asegura que el input ocupe todo el ancho del contenedor */
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* Etiqueta flotante para el campo de archivo */
+.input-file-container label {
+  position: absolute;
+  pointer-events: none;
+  top: 12px;
+  left: 12px;
+  transition: 0.2s ease all;
+  color: #666;
+  padding: 0 4px;
+  font-size: 16px;
+}
+
+/* Estilo cuando el campo de archivo tiene foco o ya se ha seleccionado un archivo */
+.input-file-container input[type="file"]:focus + label,
+.input-file-container input[type="file"]:not(:placeholder-shown) + label {
+  top: -24px;
+  left: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3366ff;
+}
+
+/* Fila de fotos */
+.photo-row-separated {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+
+/* Estilo para cada contenedor de foto */
+.left-photo,
+.right-photo {
+  display: flex;
+  align-items: center;
+  width: 48%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+/* Ajustes para el input de archivo cuando el campo es seleccionado */
+input[type="file"]:hover {
+  border-color: #888;
+}
+
+/* Estilo para el botón dentro del input de archivo */
+input[type="file"]::file-selector-button {
+  background-color: #20a0c0d5 !important;
+  color: white !important ;
+  border: none !important;
+  padding: 8px 12px !important ;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #15c41ea4 !important;
+}
+
+.image-preview {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 5px;
+  margin: 10px 0 0 10px;
+}
+
+
+
+.btn-env{
+  padding: 8px 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 10px 0 10px 20px;
+}
+
+.btn-env:hover{
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.btn-env:disabled{
+  background-color: #a0a0a0 !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+  margin-top: 10px;
+}

@@ -1,0 +1,83 @@
+<nb-card class="buscar">
+  <nb-card-header class="card-title">Buscar Boletin</nb-card-header>
+  <nb-card-body>
+    <div class="form-group">
+      <div class="input-container">
+        <input nbInput id="bulletinID" [(ngModel)]="bulletinID" (keydown.enter)="searchBulletin()" placeholder=" " />
+        <label for="bulletinID">Numero de Boletin</label>
+      </div>
+    </div>
+    <button nbButton (click)="searchBulletin()" status="primary" class="btn-buscar">Buscar</button>
+  </nb-card-body>
+</nb-card>
+
+<nb-card class="editar" [class.hidden]="!bulletinID">
+  <nb-card-header class="card-title">Editar Boletín</nb-card-header>
+  <nb-card-body>
+    <form (ngSubmit)="updateBulletin()">
+      <div class="form-row">
+        <!-- Columna 1 -->
+        <div class="input-container">
+          <input nbInput id="bulletinID" [(ngModel)]="bulletin.bulletinID" name="bulletinID" disabled placeholder=" " />
+          <label for="bulletinID">Boletín ID</label>
+        </div>
+        <div class="input-container">
+          <input nbInput id="area" [(ngModel)]="bulletin.area" name="area" placeholder=" " />
+          <label for="area">Area</label>
+        </div>
+        <div class="input-container">
+          <input nbInput id="failureName" [(ngModel)]="bulletin.failureName" name="failureName" placeholder=" " />
+          <label for="failureName">Nombre de Falla</label>
+        </div>
+        <div class="input-container">
+          <input nbInput id="name" [(ngModel)]="bulletin.name" name="name" placeholder=" " />
+          <label for="name">Nombre</label>
+        </div>
+        <div class="input-container">
+          <input nbInput id="startDate"  [(ngModel)]="bulletin.startDate" name="startDate" placeholder=" " />
+          <label for="startDate">Fecha de Inicio</label>
+        </div>
+        <div class="input-container">
+          <input nbInput id="endDate" [(ngModel)]="bulletin.endDate" name="endDate" placeholder=" " />
+          <label for="endDate">Fecha de Fin</label>
+        </div>
+
+        <!-- Columna 2 -->
+        <div class="input-container">
+          <input nbInput id="customer" [(ngModel)]="bulletin.customer" name="customer" placeholder=" " />
+          <label for="customer">Cliente</label>
+        </div>
+        <div class="input-container">
+          <input nbInput id="supplier" [(ngModel)]="bulletin.supplier" name="supplier" placeholder=" " />
+          <label for="supplier">Proveedor</label>
+        </div>
+        <div class="input-container">
+          <input nbInput id="partNumber" [(ngModel)]="bulletin.partNumber" name="partNumber" placeholder=" " />
+          <label for="partNumber">Numero Parte</label>
+        </div>
+        <div class="input-container">
+          <input nbInput id="previousID" [(ngModel)]="bulletin.previousID" name="previousID" placeholder=" " />
+          <label for="previousID">ID Anterior</label>
+        </div>
+      </div>
+      <div class="form-row-2">
+      <div class="input-container-2">
+        <textarea nbInput id="description" [(ngModel)]="bulletin.problemsDetails!.description" name="description" placeholder=" " ></textarea>
+        <label for="description">Descripción</label>
+      </div>
+      <div class="input-container-2">
+        <textarea nbInput id="actions" [(ngModel)]="bulletin.problemsDetails!.actions" name="actions" placeholder=" " ></textarea>
+        <label for="actions">Acciones</label>
+      </div>
+      <div class="input-container-2">
+        <textarea nbInput id="reworkDetails" [(ngModel)]="bulletin.problemsDetails!.reworkDetails" name="reworkDetails" placeholder=" " ></textarea>
+        <label for="reworkDetails">Detalles del Retrabajo</label>
+      </div>
+    </div>
+
+      <div class="update-button-container">
+        <button nbButton type="submit" status="success">Actualizar Boletín</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

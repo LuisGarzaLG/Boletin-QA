@@ -1,0 +1,296 @@
+/* Estilos generales */
+
+.card-title{
+  background-color: white !important;
+  background: white !important;
+  color:#f00 !important;
+  text-align: center !important;
+  font-size: 20px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  margin: 5px !important;
+  border-radius: 20px !important;
+}
+
+
+.full-width-card {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease, filter 0.3s ease, background-color 0.3s ease;
+}
+
+
+
+.full-width-card nb-card-header {
+  background: linear-gradient(135deg, #00c2ff, #0096cc);
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff;
+  font-size: 28px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+}
+
+
+
+.full-width-card nb-card-body {
+  transition: padding 0.3s ease, background-color 0.3s ease;
+  background-color: #fff;
+  border-radius: 20px !important;
+  padding: 10px 20px 20px 20px;
+}
+
+
+
+/* Contenedor del formulario centrado */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+}
+
+.input-row-3 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.input-container {
+  width: 100%;
+  max-width: 20rem; /* Ajusta este valor según tu preferencia */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.input-container input {
+  padding: 12px !important;
+  pointer-events: all !important ;
+  border: 1px solid #ccc !important;
+  border-radius: 6px !important;
+  font-size: 16px !important;
+  width: 100% !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.input-container input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+  outline: none;
+}
+
+.input-container label {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #888;
+  transition: all 0.3s ease;
+}
+
+.input-container input:focus + label,
+.input-container input:not(:placeholder-shown) + label {
+  top: -14px;
+  font-size: 14px;
+  color: #007bff;
+  background-color: transparent;
+  padding: 0 6px;
+  font-weight: bold;
+}
+
+/* Estilo de botones */
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  padding: 8px 14px !important;
+  background-color: #007bff !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
+  text-transform: uppercase !important;
+    width: 175px !important;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+button:disabled {
+  background-color: #ccc !important;
+  cursor: not-allowed !important;
+}
+.button{
+  margin-bottom: 20px;
+}
+
+/* Tarjetas internas */
+.inner-card {
+  margin: 30px;
+  padding: 30px;
+  border: 2px solid #e1e1e1;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.inner-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  background-color: #f8f8f8;
+}
+
+.inner-card nb-card-header {
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #ddd;
+  font-weight: bold;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.inner-card nb-card-body {
+  padding: 22px;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Contenedor de tarjetas de información */
+.info-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.info-card {
+  margin-top: 20px;
+  flex: 1;
+  min-width: 280px;
+  max-width: 48%;
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.01);
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+
+
+.info-card:hover {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.015);
+}
+
+.nb-card-header {
+  background-color: #00c2ff;
+  color: white;
+  padding: 18px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.nb-card-body {
+  padding: 20px;
+  font-size: 16px;
+}
+
+.nb-card-body p {
+  margin-bottom: 15px;
+  color: #666;
+  
+}
+
+/* Estilo del botón de eliminación */
+.delete-button-container {
+  display: flex ;
+  justify-content: center;
+}
+
+.delete-button {
+  width: 100% !important;
+  max-width: 230px !important;
+  padding: 16px !important;
+  font-size: 18px !important;
+  background-color: #e74c3c !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 15px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.delete-button:hover {
+  background-color: #c0392b !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.delete-button:active {
+  transform: translateY(2px) !important;
+  box-shadow: none!important;
+}
+
+/* Divisor entre secciones */
+.divider {
+  border-top: 2px solid #ddd;
+  margin: 30px 0;
+  transition: all 0.3s ease;
+}
+
+.divider:hover {
+  border-top: 2px solid #00c2ff;
+  transform: scaleX(1.05);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .info-cards-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .info-card {
+    max-width: 100%;
+  }
+
+  .delete-button {
+    max-width: 100%;
+  }
+
+  button {
+    max-width: 100%;
+  }
+
+  .form-container {
+    flex-direction: column;
+  }
+
+  .input-row {
+    max-width: 100%;
+    padding: 0 16px;
+  }
+  
+
+}
