@@ -1,0 +1,58 @@
+<nb-card class="bulletin-card full-width-card">
+  <nb-card-header class="card-title">Eliminar Boletín</nb-card-header>
+  <nb-card-body class="bulletin-body">
+    <!-- Formulario de búsqueda -->
+    <form [formGroup]="searchForm">
+      <div class="form-container">
+        <div class="input-row-3">
+          <div class="input-container">
+            <input type="text" nbInput formControlName="bulletinID" placeholder=" " class="form-control" (keydown.enter)="onSearchBoth()"/>
+            <label for="bulletinID" class="floating-label">Número de Boletín</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-container">
+        <!-- Botón para realizar ambas búsquedas -->
+        <button  type="button" outline status="info" (click)="onSearchBoth()" [disabled]="searchForm.invalid">Buscar</button>
+      </div>
+    </form>
+
+    <!-- Mostrar datos del boletín si se encontró -->
+    <div *ngIf="isEditing">
+      <div class="info-cards-container">
+        <!-- Información del boletín -->
+        <nb-card class="info-card" *ngIf="bulletinData">
+          <nb-card-header>Información del Boletín</nb-card-header>
+          <nb-card-body>
+            <p><strong>ID:</strong> {{ bulletinData.bulletinID }}</p>
+            <p><strong>Área:</strong> {{ bulletinData.area }}</p>
+            <p><strong>Parte:</strong> {{ bulletinData.partNumber }}</p>
+            <p><strong>Fecha de Inicio:</strong> {{ bulletinData.startDate | date:'yyyy-MM-dd' }}</p>
+            <p><strong>Fecha de Fin:</strong> {{ bulletinData.endDate | date:'yyyy-MM-dd' }}</p>
+            <p><strong>Cliente:</strong> {{ bulletinData.customer }}</p>
+            <p><strong>Proveedor:</strong> {{ bulletinData.supplier }}</p>
+            <p><strong>Nombre:</strong> {{ bulletinData.name }}</p>
+            <p><strong>Falla:</strong> {{ bulletinData.failureName }}</p>
+            <p><strong>ID Previo:</strong> {{ bulletinData.previousID }}</p>
+          </nb-card-body>
+        </nb-card>
+
+        <!-- Detalles del boletín -->
+        <nb-card class="info-card" *ngIf="detailsData">
+          <nb-card-header>Detalles del Boletín</nb-card-header>
+          <nb-card-body>
+            
+            <p><strong>Descripción:</strong> {{ detailsData.description }}</p>
+            <p><strong>Acciones:</strong> {{ detailsData.actions }}</p>
+            <p><strong>Detalles de Retrabajo:</strong> {{ detailsData.reworkDetails }}</p>
+          </nb-card-body>
+        </nb-card>
+      </div>
+
+      <div class="delete-button-container">
+        <button nbButton status="danger" class="delete-button" (click)="onDeleteSubmit()">Eliminar Boletín</button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

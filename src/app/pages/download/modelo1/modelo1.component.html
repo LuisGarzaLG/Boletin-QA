@@ -1,0 +1,107 @@
+y<!-- FORMULARIO PRINCIPAL -->
+<nb-card class="formularioPrincipal-card">
+    <nb-card class="margin">
+        <nb-card-body class="asd" id="formularioPrincipal">
+            <div class="bulletin-form">
+                <form [formGroup]="bulletinform" (ngSubmit)="onSearchBoth()">
+                    <!-- ENCABEZADO -->
+                    <div class="header">
+                        <img id="encabezado"src="http://mxrexvs36/SpartaVFiles/Raidenm/BoletinQA.png"alt="Encabezado" class="encabezado-img" />
+                        <h2>BOLETIN DE CALIDAD</h2>
+                        <div class="form-group">
+                            <input id="failureMode" type="text" class="form-control1" formControlName="failureMode" />
+                        </div>
+                    </div>
+
+                    <!-- INFORMACIÓN PRINCIPAL -->
+                    <div class="info-section">
+                        <div class="left">
+                            <div class="input-container-m1">
+                                <label for="area">Area:</label>
+                                <input id="area" type="text" class="form-control" formControlName="area" />
+                            </div>
+                            <div class="input-container-m1">
+                                <label for="startDate">Fecha Inicial:</label>
+                                <input id="startDate" type="text" class="form-control" formControlName="startDate" />
+                            </div>
+                            <div class="input-container-m1">
+                                <label for="partNumber">Numero de Parte:</label>
+                                <input id="partNumber" type="text" class="form-control" formControlName="partNumber" />
+                            </div>
+                            <div class="input-container-m1">
+                                <label for="customer">Cliente:</label>
+                                <input id="customer" type="text" class="form-control" formControlName="customer" />
+                            </div>
+                            <div class="input-container-m1">
+                                <label for="name">Nombre:</label>
+                                <textarea id="name" type="text" class="form-control" formControlName="name"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="right">
+                            <div class="input-container-m1">
+                                <label for="bulletinID">Boletín:</label>
+                                <input id="bulletinID" type="text" class="form-control" formControlName="bulletinID" required />
+                            </div>
+                            <div class="input-container-m1">
+                                <label for="endDate">Vencimiento:</label>
+                                <input id="endDate" type="text" class="form-control" formControlName="endDate" />
+                            </div>
+                            <div class="input-container-m1">
+                                <label for="previousID">No. Reemplazado:</label>
+                                <input id="previousID" type="text" class="form-control" formControlName="previousID" />
+                            </div>
+                            <div class="input-container-m1">
+                                <label for="dated">Fechado:</label>
+                                <input id="dated" type="text" class="form-control" formControlName="dated" />
+                            </div>
+                            <div class="input-container-m1">
+                                <label for="supplier">Provedor:</label>
+                                <input id="supplier" type="text" class="form-control" formControlName="supplier" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NOTIFICACIÓN Y ACCIONES -->
+                    <div class="notification-section">
+                        <div id="description" [innerHTML]="detailsform.controls.description.value" class="asd1"></div>
+                        <div id="actions" [innerHTML]="detailsform.controls.actions.value" class="asd1"></div>
+                      </div>
+                      
+
+                    <!-- CRITERIO DE ACEPTACIÓN/RECHAZO -->
+                    <div class="criteria-section" [formGroup]="detailsform">
+                        <div class="criteria-title">
+                            Criterio de Aceptación/Rechazo: (Fotos con la falla / aceptación / Diagramas / Muestras / Etc)
+                        </div>
+                        <div class="columns">
+                            <div class="column acceptable">
+                                <label for="name" class="accept">Aceptable:</label>
+                                <div *ngIf="qualityPhotosBase64">
+                                    <img [src]="qualityPhotosBase64" alt="Foto Aceptable" class="photo" />
+                                </div>
+                                <div *ngIf="!qualityPhotosBase64">
+                                </div>
+                            </div>
+
+                            <div class="column defect">
+                                <label for="name" class="defects">Defecto:</label>
+                                <div *ngIf="defectPhotosBase64">
+                                    <img [src]="defectPhotosBase64" alt="Foto Defecto" class="photo" />
+                                </div>
+                                <div *ngIf="!defectPhotosBase64">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FIRMAS -->
+                    <div class="signature-section">
+                        <div class="signature">MQE / SUPERVISOR DE PRODUCCIÓN</div>
+                        <div class="signature">GERENTE DE CALIDAD</div>
+                    </div>
+                </form>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</nb-card>
