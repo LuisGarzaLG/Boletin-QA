@@ -27,6 +27,11 @@ export class DownloadComponent implements OnInit {
   qualityPhotosBase641: string | null = null;
   defectPhotosBase641: string | null = null;
 
+  maxPrints: number = 0;  // Número máximo de impresiones
+  currentPrints: number = 0;  // Contador de impresiones realizadas
+
+
+
   get bulletinform(): FormGroup {
     return this.fullform.get('bulletinform') as FormGroup;
   }
@@ -73,7 +78,11 @@ onBulletinIdInput(): void {
         dated: [''],
         failureMode: [''],
         supplier:[''],
-        customer:['']
+        customer:[''],
+        creatorUser: [''], 
+        creatorName:[''],
+        impressions: [1, [Validators.required, Validators.min(1)]],
+        inProduction:['']
       }),
       detailsform: this.fb.group({
         bulletinID: [''],
@@ -86,7 +95,9 @@ onBulletinIdInput(): void {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+     this.maxPrints = this.bulletinform.get('print')?.value || 0;
+  }
 
   // Función para buscar boletín y detalles
   async onSearchBoth(): Promise<void> {
@@ -111,7 +122,11 @@ onBulletinIdInput(): void {
             failureMode: BulletinData.failureName,
             supplier: BulletinData.supplier,
             customer: BulletinData.customer,
-            partNumber: BulletinData.partNumber
+            partNumber: BulletinData.partNumber,
+            //creatorUser: BulletinData.creatorUser, 
+            //creatorName:BulletinData.creatorName,
+            //impressions: BulletinData.impressions,
+            //inProduction: BulletinData.inProduction
           });
         } else {
           await this.notificationService.info('Boletín no encontrado', 'Por favor, ingrese un boletín válido.');

@@ -22,6 +22,10 @@ export interface CreateBulletinDto{
     name: string,
     failureName: string,
     previousID: string
+    creatorUser: string,
+    creatorName:string,
+    impressions:0,
+    inProduction: boolean | null,
     details?: Details;
     }
     export interface CreateBulletinDto2 {
@@ -35,6 +39,10 @@ export interface CreateBulletinDto{
       name: string;
       failureName: string;
       previousID: string;
+      creatorUser: string;
+      creatorName:string;
+      impressions:0;
+      inProduction: boolean | null;
       problemsDetails?: {
         description: string;
         actions: string;

@@ -5,16 +5,62 @@ import { qualityrequestsprovaider } from 'src/app/providers/services/quality req
 import { ButtonRenderComponent } from './button-render/button-render.component';
 import { NotificationService } from 'src/app/providers/services/notification/notification.service';
 import { FormBuilder } from '@angular/forms';
-import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { CheckboxRenderComponent } from './checkbox-render/checkbox-render.component';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit {
   loading: boolean = false;
+  
+  sourceTab: LocalDataSource = new LocalDataSource();
+  detallesSource: LocalDataSource = new LocalDataSource();
+  userRoles: string[]=[];
+  
+
+  constructor(
+    private router: Router,
+    private provider: qualityrequestsprovaider,
+    private notificationService: NotificationService,
+    private fb:FormBuilder
+  ) { }
+
+ngOnInit(): void {
+  this.subscribeToData();
+  if (this.provider.currentbulletin.length === 0) {
+    this.provider.refreshdata();
+  }
+
+  const currentUser = sessionStorage.getItem('currentUser');
+  const currentUsers = sessionStorage;
+  console.log(currentUsers);
+
+  if (currentUser) {
+    const user = JSON.parse(currentUser);
+    const email = user.email;
+    const name = user.name; // Cambia `givenName` por `name` si prefieres otro campo
+    console.log('Name:', name); // Muestra el nombre en consola
+    this.currentUser = name; // Asigna el nombre del usuario a la propiedad currentUser
+  }
+
+  const rolesStorage = sessionStorage.getItem('roles');
+  if (rolesStorage) {
+    this.userRoles = JSON.parse(rolesStorage); // ["BulletinQA", "ESDManager"]
+    //console.log('Roles:', this.userRoles);
+    setTimeout(() => {
+      const textareas = document.querySelectorAll('textarea');
+      textareas.forEach((ta: any) => this.autoResize(ta));
+    }, 0);
+  }
+}
+
+currentUser: string = ''; // Inicializa como vacío, y luego se asignará el nombre del usuario
+
 
   BulletinQA = {
     actions: {
@@ -73,6 +119,23 @@ export class HomeComponent implements OnInit {
         title: 'Id Previo',
         type: 'string'
       },
+      creatorName:{
+        title:'Usuario',
+        type: 'string'
+      },
+      
+      inProduction: {
+      title: 'Estatus',
+      type: 'custom',
+      renderComponent: CheckboxRenderComponent,
+      filter: false,
+      onComponentInitFunction: (instance: any) => {
+        instance.currentUser = this.currentUser;
+        instance.save.subscribe((data: any) => {
+          //this.actualizarEstadoProduccion(data.rowData.bulletinID, data.value);
+        });
+      }
+    },
       details: {
         title: 'Detalles',
         type: 'custom',
@@ -87,47 +150,6 @@ export class HomeComponent implements OnInit {
     }
   };
 
-  sourceTab: LocalDataSource = new LocalDataSource();
-  detallesSource: LocalDataSource = new LocalDataSource();
-  userRoles: string[]=[];
-  
-
-  constructor(
-    private router: Router,
-    private provider: qualityrequestsprovaider,
-    private notificationService: NotificationService,
-    private fb:FormBuilder
-  ) { }
-
-  ngOnInit(): void {
-    this.subscribeToData();
-    if (this.provider.currentbulletin.length === 0) {
-      this.provider.refreshdata();
-    }
-
-
-const currentUser = sessionStorage.getItem('currentUser');
-
-
-if (currentUser) {
-  const user = JSON.parse(currentUser);
-  const email = user.email;
-  //console.log('Email:', email);
-}
-
-const rolesStorage = sessionStorage.getItem('roles');
-if (rolesStorage) {
-  this.userRoles = JSON.parse(rolesStorage); // ["BulletinQA", "ESDManager"]
-  //console.log('Roles:', this.userRoles);
-
-    setTimeout(() => {
-      const textareas = document.querySelectorAll('textarea');
-      textareas.forEach((ta: any) => this.autoResize(ta));
-    }, 0);
-    
-    
-  }
-}
 
   private subscribeToData(): void {
     this.provider.bulletins$.subscribe(
@@ -135,51 +157,71 @@ if (rolesStorage) {
       (error) => console.error(error)
     );
   }
-
+/*
   exportToExcel(): void {
-    this.sourceTab.getFilteredAndSorted().then(data => {
-      const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
-  
-      // Aplicar bordes y estilos básicos
-      const range = XLSX.utils.decode_range(worksheet['!ref']!);
-      for (let R = range.s.r; R <= range.e.r; ++R) {
-        for (let C = range.s.c; C <= range.e.c; ++C) {
-          const cell_address = { c: C, r: R };
-          const cell_ref = XLSX.utils.encode_cell(cell_address);
-  
-          if (!worksheet[cell_ref]) continue;
-  
-          worksheet[cell_ref].s = {
-            border: {
-              top: { style: 'thin', color: { rgb: "000000" } },
-              bottom: { style: 'thin', color: { rgb: "000000" } },
-              left: { style: 'thin', color: { rgb: "000000" } },
-              right: { style: 'thin', color: { rgb: "000000" } }
-            },
-            font: {
-              bold: R === 0, // Poner en negrita solo la primera fila (cabeceras)
-            },
-            alignment: {
-              vertical: "center",
-              horizontal: "center",
-              wrapText: true
-            }
-          };
+  this.sourceTab.getFilteredAndSorted().then(data => {
+    // Crear una nueva instancia de un libro de trabajo (workbook)
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Bulletin QA');
+
+    // Definir las cabeceras de la tabla
+    worksheet.columns = [
+      { header: 'Número de Boletín', key: 'bulletinID', width: 20 },
+      { header: 'Area', key: 'area', width: 20 },
+      { header: 'Número de Parte', key: 'partNumber', width: 20 },
+      { header: 'Fecha', key: 'startDate', width: 20 },
+      { header: 'Fecha de Vencimiento', key: 'endDate', width: 20 },
+      { header: 'Cliente', key: 'customer', width: 20 },
+      { header: 'Proveedor', key: 'supplier', width: 20 },
+      { header: 'Nombre del Problema', key: 'name', width: 20 },
+      { header: 'Modo de Falla', key: 'failureName', width: 20 },
+      { header: 'Id Previo', key: 'previousID', width: 20 },
+      { header: 'Usuario', key: 'users', width: 20 },
+    ];
+
+    // Llenar las filas con los datos obtenidos
+    data.forEach((item: any) => {
+      worksheet.addRow({
+        bulletinID: item.bulletinID,
+        area: item.area,
+        partNumber: item.partNumber,
+        startDate: new Date(item.startDate).toLocaleDateString(),
+        endDate: new Date(item.endDate).toLocaleDateString(),
+        customer: item.customer,
+        supplier: item.supplier,
+        name: item.name,
+        failureName: item.failureName,
+        previousID: item.previousID,
+        users: item.users
+      });
+    });
+
+    // Aplicar bordes y estilos
+    worksheet.eachRow({ includeEmpty: true }, (row, rowNumber) => {
+      row.eachCell((cell, colNumber) => {
+        cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+        if (rowNumber === 1) {
+          cell.font = { bold: true }; // Negrita en la primera fila (cabecera)
         }
-      }
-  
-      const workbook: XLSX.WorkBook = {
-        Sheets: { 'Bulletin QA': worksheet },
-        SheetNames: ['Bulletin QA']
-      };
-  
-      const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array', cellStyles: true });
-      const blob: Blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+        cell.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' }
+        };
+      });
+    });
+
+    // Crear un buffer del archivo Excel
+    workbook.xlsx.writeBuffer().then((buffer: any) => {
+      // Crear el Blob y descargar el archivo
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'BulletinQA.xlsx');
     });
-  }
+  });
+}
   
-  
+  */
 
 
   mostrarDetalle = false;

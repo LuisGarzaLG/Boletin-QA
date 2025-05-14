@@ -23,6 +23,10 @@ export class EditComponent {
     name: '',
     failureName: '',
     previousID: '',
+    creatorUser:'',
+    creatorName:'',
+    impressions:0,
+    inProduction: null,
     problemsDetails: {
       description:'',
       actions:''
@@ -88,6 +92,10 @@ export class EditComponent {
         supplier: this.bulletin.supplier,
         partNumber: this.bulletin.partNumber,
         previousID: this.bulletin.previousID,
+        creatorUser: this.bulletin.creatorUser,
+        creatorName: this.bulletin.creatorName,
+        impressions: this.bulletin.impressions,
+        inProduction: this.bulletin.inProduction,
         updateDetails: {
           description: this.bulletin.problemsDetails?.description,
           actions: this.bulletin.problemsDetails?.actions,
@@ -111,6 +119,10 @@ export class EditComponent {
           name: '',
           failureName: '',
           previousID: '',
+          creatorUser:'',
+          creatorName:'',
+          impressions:0,
+          inProduction: null,
           problemsDetails: {
             description: '',
             actions: '',

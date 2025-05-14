@@ -29,7 +29,24 @@ export class AddComponent {
   @ViewChild('defectPhotoInput1') defectPhotoInput1!: ElementRef;
 
   
-  areas: string[] = ['F-AX1', 'F-AX2', 'F-AX3', 'F-AX4','BPA-1', 'BPA-2', 'BPA-3','Reflash', 'Network', 'S4X', 'COE','SRL', 'LCS', 'Incoming', 'PSC'];
+ngOnInit():void{
+  const currentUsers = sessionStorage.getItem('currentUser');
+  if (currentUsers) {
+  const creatorUser = JSON.parse(currentUsers);
+  const name = creatorUser.name;
+  this.bulletinform.patchValue({ creatorUser: name });
+}
+if (currentUsers) {
+  const creatorName = JSON.parse(currentUsers);
+  const name = creatorName.givenName;
+  this.bulletinform.patchValue({ creatorName: name });
+}
+
+
+}
+  
+  
+  areas: string[] = ['F-AX1', 'F-AX2', 'F-AX3', 'F-AX4','BPA-1', 'BPA-2', 'BPA-3','Reflash', 'Network', 'S4X', 'COE','SRL', 'LCS', 'Incoming', 'PSC','Residencial','o	C&I','Residencial - C&I','Embarques'];
   
     // Método que se ejecuta cuando el valor del select cambia
     onSelectChange(): void {
@@ -62,7 +79,11 @@ export class AddComponent {
       supplier: [''],
       name: [''],
       failureName: [''],
-      previousID: [null]
+      previousID: [null],
+      creatorUser: [''], 
+      creatorName:[''],
+      impressions: [1, [Validators.required, Validators.min(1)]],
+      inProduction: false
     });
     this.detailsform = this.fb.group({
       bulletinID: [''],
@@ -73,14 +94,14 @@ export class AddComponent {
     this.fullbulletininform = this.fb.group({
       bulletin: [''],
       details: [''],
-      qualityPhotos: [null], 
-      defectPhotos: [null]
+      qualityPhotos: [], 
+      defectPhotos: []
     });
     this.photoupload = this.fb.group({
       id: [''],
       bulletinID: [''],
-      qualityPhotos: [null], 
-      defectPhotos: [null]
+      qualityPhotos: [], 
+      defectPhotos: []
     });
     this.searchForm = this.fb.group({
       bulletinID: ['']
@@ -131,7 +152,11 @@ export class AddComponent {
       customer: formData.customer,
       supplier: formData.supplier,
       partNumber: formData.partNumber,
-      previousID: formData.previousID
+      previousID: formData.previousID,
+      creatorUser: formData.creatorUser, 
+      creatorName:formData.creatorName,
+      impressions: formData.impressions,
+      inProduction: formData.inProduction
     };
     const details: Details2 = {
       bulletinID: formData.bulletinID,

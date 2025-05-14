@@ -6,12 +6,14 @@ import { HomeComponent } from './home.component';
 import { NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbSpinnerModule, NbTabsetModule, NbThemeModule, NbToastrModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CheckboxRenderComponent } from './checkbox-render/checkbox-render.component';
 
 
 
 @NgModule({
   declarations: [
     HomeComponent,
+    CheckboxRenderComponent,
     
   ],
   imports: [

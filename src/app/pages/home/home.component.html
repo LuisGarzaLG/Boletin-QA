@@ -1,14 +1,14 @@
 <nb-tabset>
   <nb-tab tabTitle="Bulletin QA">
+    <div class="button-container">
+        <button *ngIf="userRoles.includes('BulletinQA')"  class="btn btn-primary"> Descargar Excel</button>
+      </div> 
       <div class="table-container" [nbSpinner]="loading" nbSppinerStatus="primary" nbSpinnerSize="giant">
       <div class="table-wrapper">
       </div>
       <ng2-smart-table [settings]="BulletinQA" [source]="sourceTab" class="Tabla"></ng2-smart-table>
     </div>
-      <div class="button-container">
-        <button *ngIf="userRoles.includes('BulletinQA')" (click)="exportToExcel()" class="btn btn-primary"> Descargar Excel</button>
-        
-      </div>      
+           
   </nb-tab>
 </nb-tabset>
 
