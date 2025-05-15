@@ -101,3 +101,9 @@ export interface Photos {
     defectPhotos: string | null;
   }
   
+
+
+export interface UBiP{
+  bulletinID: string,
+  inProduction: boolean
+}

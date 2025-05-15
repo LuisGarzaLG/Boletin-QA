@@ -3,6 +3,7 @@ import { NotificationService } from 'src/app/providers/services/notification/not
 import { qualityrequestsprovaider } from 'src/app/providers/services/quality request/qualityBrequestsprovaider';
 import { CreateBulletinDto2} from 'src/app/providers/models/quality-request-all-models';
 import Swal from 'sweetalert2';
+import { CheckboxRenderComponent } from '../home/checkbox-render/checkbox-render.component';
 
 
 @Component({
@@ -63,7 +64,7 @@ export class EditComponent {
   
 
   // Función para actualizar los datos del boletín
-  async updateBulletin() {
+ async updateBulletin() {
     const result = await Swal.fire({
       title: '¿Quieres actualizar el boletín?',
       text: 'Se guardarán los cambios en la base de datos',
@@ -77,67 +78,71 @@ export class EditComponent {
         popup: 'swal2-borderless',
       }
     });
-  
+
     if (!result.isConfirmed) {
       return; // El usuario canceló
     }
     const bulletinData = {
-        bulletinID: this.bulletin.bulletinID, 
-        area: this.bulletin.area,
-        failureName: this.bulletin.failureName,
-        name: this.bulletin.name,
-        startDate: this.bulletin.startDate,
-        endDate: this.bulletin.endDate,
-        customer: this.bulletin.customer,
-        supplier: this.bulletin.supplier,
-        partNumber: this.bulletin.partNumber,
-        previousID: this.bulletin.previousID,
-        creatorUser: this.bulletin.creatorUser,
-        creatorName: this.bulletin.creatorName,
-        impressions: this.bulletin.impressions,
-        inProduction: this.bulletin.inProduction,
-        updateDetails: {
-          description: this.bulletin.problemsDetails?.description,
-          actions: this.bulletin.problemsDetails?.actions,
-          reworkDetails: this.bulletin.problemsDetails?.reworkDetails
-        }
+      bulletinID: this.bulletin.bulletinID,
+      area: this.bulletin.area,
+      failureName: this.bulletin.failureName,
+      name: this.bulletin.name,
+      startDate: this.bulletin.startDate,
+      endDate: this.bulletin.endDate,
+      customer: this.bulletin.customer,
+      supplier: this.bulletin.supplier,
+      partNumber: this.bulletin.partNumber,
+      previousID: this.bulletin.previousID,
+      creatorUser: this.bulletin.creatorUser,
+      creatorName: this.bulletin.creatorName,
+      impressions: this.bulletin.impressions,
+      inProduction: this.bulletin.inProduction,
+      updateDetails: {
+        description: this.bulletin.problemsDetails?.description,
+        actions: this.bulletin.problemsDetails?.actions,
+        reworkDetails: this.bulletin.problemsDetails?.reworkDetails
+      }
     };
-         console.log('Enviando a la API:', bulletinData);
-        this.qualityrequestsprovaider.updateBulletinData(bulletinData).then(() => {
-      
-        this.notificationService.info('Boletín actualizado correctamente');
-        
-        // Limpiar los campos después de la actualización
-        this.bulletin = {
-          bulletinID: '',
-          area: '',
-          partNumber: '',
-          startDate: '',
-          endDate: '',
-          customer: '',
-          supplier: '',
-          name: '',
-          failureName: '',
-          previousID: '',
-          creatorUser:'',
-          creatorName:'',
-          impressions:0,
-          inProduction: null,
-          problemsDetails: {
-            description: '',
-            actions: '',
-            reworkDetails: ''
-          }
-        };
-        
-        
-        
-        // Limpiar el campo del buscador
-        this.bulletinID = '';
 
+    console.log('Enviando a la API:', bulletinData);
+    this.qualityrequestsprovaider.updateBulletinData(bulletinData).then(() => {
+      this.notificationService.info('Boletín actualizado correctamente');
+
+      // Limpiar los campos después de la actualización
+      this.bulletin = {
+        bulletinID: '',
+        area: '',
+        partNumber: '',
+        startDate: '',
+        endDate: '',
+        customer: '',
+        supplier: '',
+        name: '',
+        failureName: '',
+        previousID: '',
+        creatorUser: '',
+        creatorName: '',
+        impressions: 0,
+        inProduction: null,
+        problemsDetails: {
+          description: '',
+          actions: '',
+          reworkDetails: ''
+        }
+      };
+
+      // Limpiar el campo del buscador
+      this.bulletinID = '';
+
+      // Actualizar los datos después de la actualización
+      this.qualityrequestsprovaider.refreshdata();
     }).catch(err => {
-        this.notificationService.error('Error al actualizar el boletín');
+      this.notificationService.error('Error al actualizar el boletín');
     });
+  }
+
+
+
+  
 }
 
-}

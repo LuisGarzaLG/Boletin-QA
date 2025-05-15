@@ -26,7 +26,7 @@
     "@nebular/theme": "^8.0.0",
     "eva-icons": "^1.1.2",
     "events": "^3.3.0",
-    "exceljs": "^4.4.0",
+    "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",
     "ng2-charts": "^2.4.2",
     "ng2-completer": "^9.0.1",

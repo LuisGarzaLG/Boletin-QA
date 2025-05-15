@@ -59,6 +59,19 @@
           <input nbInput id="previousID" [(ngModel)]="bulletin.previousID" name="previousID" placeholder=" " />
           <label for="previousID">ID Anterior</label>
         </div>
+        <div class="input-container">
+          <input nbInput id="impressions" [(ngModel)]="bulletin.impressions" name="impressions" placeholder=" "  />
+          <label for="impressions">Impresiones</label>
+        </div>
+        <div class="input-container">
+          <input nbInput id="creatorUser" [(ngModel)]="bulletin.creatorUser" name="creatorUser" placeholder=" " [readonly]="true"  style="background-color: #f0f0f0; cursor: default;"/>
+          <label for="creatorUser">Usuario Creador</label>
+        </div>
+        <div class="input-container">
+          <input nbInput id="creatorName" [(ngModel)]="bulletin.creatorName" name="creatorName" placeholder=" " [readonly]="true"  style="background-color: #f0f0f0; cursor: default;"/>
+          <label for="creatorName">Nombre Usuario</label>
+        </div>
+        
       </div>
       <div class="form-row-2">
       <div class="input-container-2">
