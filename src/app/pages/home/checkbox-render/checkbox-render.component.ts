@@ -1,6 +1,6 @@
-import { Component, Input, OnInit,Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
-// ✅ SIN CAMBIOS en checkbox-render.component.ts
+// ✅ SIN CAMBIOS en lógica ni estructura
 @Component({
   selector: 'app-checkbox-render',
   template: `
@@ -12,7 +12,10 @@ import { Component, Input, OnInit,Output, EventEmitter } from '@angular/core';
         [disabled]="!isEditable"
       />
       <div
-        [ngStyle]="{ color: value ? 'red' : 'green', 'font-size': '12px', 'margin-top': '4px' }"
+        [ngStyle]="{
+          color: value ? '#f00' : 'green',
+          'margin-top': '4px'
+        }"
       >
         {{ value ? 'Retirado' : 'Activo' }}
       </div>

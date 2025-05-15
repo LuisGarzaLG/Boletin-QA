@@ -89,8 +89,8 @@ export interface Comments {
 export interface Photos {
     id: number;
     bulletinId: string;
-    qualityPhotos: string | null; // Aquí guardamos el código base64 de la foto
-    defectPhotos: string | null;  // Aquí guardamos el código base64 de la foto
+    qualityPhotos: string | null; 
+    defectPhotos: string | null;
   }
 
 

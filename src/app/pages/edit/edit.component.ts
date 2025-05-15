@@ -140,9 +140,5 @@ export class EditComponent {
       this.notificationService.error('Error al actualizar el boletín');
     });
   }
-
-
-
-  
 }
 

@@ -35,6 +35,11 @@
             <p><strong>Nombre:</strong> {{ bulletinData.name }}</p>
             <p><strong>Falla:</strong> {{ bulletinData.failureName }}</p>
             <p><strong>ID Previo:</strong> {{ bulletinData.previousID }}</p>
+            <p><strong>Usuario:</strong> {{ bulletinData.creatorUser }}</p>
+            <p><strong>Nombre de usuario:</strong> {{ bulletinData.creatorName }}</p>
+            <p><strong>Limite de Impresiones:</strong> {{ bulletinData.impressions }}</p>
+            <p><strong>Estatus:</strong> {{ bulletinData.inProduction ? 'Retirado' : 'Activo' }}</p>
+
           </nb-card-body>
         </nb-card>
 

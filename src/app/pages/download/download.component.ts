@@ -96,7 +96,7 @@ onBulletinIdInput(): void {
   }
 
   ngOnInit(): void {
-     this.maxPrints = this.bulletinform.get('print')?.value || 0;
+     this.maxPrints = this.bulletinform.get('impressions')?.value || 0;
   }
 
   // Función para buscar boletín y detalles

@@ -201,7 +201,10 @@ if (currentUsers) {
       await this.provider.FullBulletin(fullBulletin);
 await this.provider.createPhotos(photoupload);
 
-      this.bulletinform.reset();
+      this.bulletinform.reset({
+        creatorUser: this.bulletinform.get('creatorUser')?.value,
+        creatorName: this.bulletinform.get('creatorName')?.value
+      });
       this.detailsform.reset();
       this.qualityPhotosBase64 = null;
       this.defectPhotosBase64 = null;
