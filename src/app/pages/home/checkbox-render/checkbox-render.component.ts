@@ -1,5 +1,6 @@
 import { Component, Input, OnInit,Output, EventEmitter } from '@angular/core';
 
+// ✅ SIN CAMBIOS en checkbox-render.component.ts
 @Component({
   selector: 'app-checkbox-render',
   template: `
@@ -22,6 +23,8 @@ export class CheckboxRenderComponent implements OnInit {
   @Input() value: boolean = false;
   @Input() rowData: any;
   @Input() currentUser: string = '';
+  @Output() save = new EventEmitter<any>();
+
   isEditable: any;
 
   ngOnInit() {
@@ -33,6 +36,4 @@ export class CheckboxRenderComponent implements OnInit {
     this.value = newValue;
     this.save.emit({ value: newValue, rowData: this.rowData });
   }
-
-  @Output() save = new EventEmitter<any>();
 }

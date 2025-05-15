@@ -27,9 +27,20 @@ export class qualityrequestsprovaider extends BaseProvider {
     private endpointdeletebulletin = '/api/v1/qa/deletebulletin';
     private endpointgetbulletinbyid = '/api/v1/qa/getbulletinbyid';
     private endpointgetdetailsbyid = '/api/v1/qa/getdetailsbyid';
-    private endpointgetbulletinphotos = '/api/v1/qa/getbulletinphotos'
-    private endpointupdatebulletinqa = '/api/v1/qa/updatebulletinqa'
+    private endpointgetbulletinphotos = '/api/v1/qa/getbulletinphotos';
+    private endpointupdatebulletinqa = '/api/v1/qa/updatebulletinqa';
+    private endpointupdatebulletininproduction = '/api/v1/qa/updatebulletininproduction'
+    private endpointGetallbulletinsnonExpired = '/api/v1/qa/getallbulletinsonexpired/'
+    
 
+    public async GetAllBulletinsNonExpired(): Promise<GetAllBulletins[]> {
+        return await this.service.Get<GetAllBulletins[]>(this.endpointGetallbulletinsnonExpired)
+            .then((data: HttpResponse<GetAllBulletins[]>) => {
+                return data.body || [];
+            });
+    }
+
+    
     public async GetAllBulletin(): Promise<GetAllBulletins[]> {
         return await this.service.Get<GetAllBulletins[]>(this.endpointgetallbulletins)
             .then((data: HttpResponse<GetAllBulletins[]>) => {
@@ -218,7 +229,27 @@ export class qualityrequestsprovaider extends BaseProvider {
     }
     
     
-      
+        public async updateBulletinInProduction(bulletinID: string, inProduction: boolean): Promise<void> {
+            if (!bulletinID) {
+                console.error('El bulletinID no es válido');
+                return;
+            }
+
+            const payload = {
+                bulletinID,
+                inProduction
+            };
+
+            return await this.service.Put1(`${this.endpointupdatebulletininproduction}`, payload)
+                .then(() => {
+                    this.notificationService.info('Estatus actualizado correctamente');
+                })
+                .catch(() => {
+                    this.notificationService.error('Error al actualizar el estatus del boletín');
+                });
+        }
+
+
     
     
     

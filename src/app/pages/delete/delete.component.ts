@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormField, CreateBulletinDto, Details } from 'src/app/providers/models/quality-request-all-models';
+import { CreateBulletinDto, Details } from 'src/app/providers/models/quality-request-all-models';
 import { NotificationService } from 'src/app/providers/services/notification/notification.service';
 import { qualityrequestsprovaider } from 'src/app/providers/services/quality request/qualityBrequestsprovaider';
 
@@ -19,16 +18,14 @@ export class DeleteComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private provider: qualityrequestsprovaider,
-    private notificationService: NotificationService,
-    private router: Router
+    private notificationService: NotificationService
   ) {
     this.searchForm = this.fb.group({
       bulletinID: [''],
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   // Función para buscar el boletín y los detalles con un solo botón
   async onSearchBoth() {
@@ -79,8 +76,7 @@ export class DeleteComponent implements OnInit {
       // Usar confirmación de notificación
       await this.notificationService.info(
         'Número de boletín inválido',
-        'Por favor, ingrese un número de boletín válido.',
-        
+        'Por favor, ingrese un número de boletín válido.'
       );
     }
   }
@@ -101,7 +97,10 @@ export class DeleteComponent implements OnInit {
 
         if (confirmed) {
           // Si el usuario confirma, proceder con la eliminación
-          await this.provider.DeleteBulletin(bulletinID); // Asegúrate de que esta función esté implementada en el proveedor
+          await this.provider.DeleteBulletin(bulletinID);
+
+          // Llamamos al método refreshdata() para actualizar la lista de boletines
+          this.provider.refreshdata();  // Actualiza la lista de boletines después de la eliminación
           
           this.isEditing = false;
           this.bulletinData = null; // Limpiar los datos después de eliminar
@@ -115,7 +114,6 @@ export class DeleteComponent implements OnInit {
         await this.notificationService.info(
           'Error al eliminar',
           'Hubo un error al intentar eliminar el boletín.'
-          
         );
       }
     }

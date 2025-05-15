@@ -215,6 +215,7 @@ await this.provider.createPhotos(photoupload);
       this.resetInput(this.defectPhotoInput1);
       this.provider.refreshdata();
       this.notificationservice.success('Boletín creado exitosamente.');
+      this.provider.refreshdata();
     } catch (error: any) {
       console.error('Error al crear el boletín', error);
       this.notificationservice.error('Error al crear el boletín');
