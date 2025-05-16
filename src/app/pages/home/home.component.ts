@@ -174,15 +174,17 @@ async subscribeToData(): Promise<void> {
 }
 
 
- exportToExcel(source: LocalDataSource, nombreArchivo: string): void {
-  source.getFilteredAndSorted().then(data => {
+exportToExcel(source: LocalDataSource, nombreArchivo: string): void {
+  source.getFilteredAndSorted().then(async data => {
     const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet('Bulletin QA');
+    const mainSheet = workbook.addWorksheet('Bulletin QA');
+    const detailSheet = workbook.addWorksheet('Detalles');
 
-    worksheet.columns = [
+    // Hoja principal
+    mainSheet.columns = [
       { header: 'Número de Boletín', key: 'bulletinID', width: 20 },
       { header: 'Impresiones', key: 'impressions', width: 20 },
-      { header: 'Area', key: 'area', width: 20 },
+      { header: 'Área', key: 'area', width: 20 },
       { header: 'Número de Parte', key: 'partNumber', width: 20 },
       { header: 'Fecha', key: 'startDate', width: 20 },
       { header: 'Fecha de Vencimiento', key: 'endDate', width: 20 },
@@ -192,11 +194,33 @@ async subscribeToData(): Promise<void> {
       { header: 'Modo de Falla', key: 'failureName', width: 20 },
       { header: 'Id Previo', key: 'previousID', width: 20 },
       { header: 'Usuario', key: 'creatorName', width: 20 },
-      { header: 'Estatus', key: 'inProduction', width: 15 },
+      { header: 'Estatus', key: 'inProduction', width: 15 }
     ];
 
-    data.forEach((item: any) => {
-      worksheet.addRow({
+    // Hoja de detalles
+    detailSheet.columns = [
+      { header: 'Número de Boletín', key: 'bulletinID', width: 20 },
+      { header: 'Descripción', key: 'description', width: 40 },
+      { header: 'Acciones', key: 'action', width: 40 },
+      { header: 'Retrabajo', key: 'reworkDetails', width: 40 }
+    ];
+
+    for (const item of data) {
+      let detalles = { description: '', action: '', reworkDetails: '' };
+
+      try {
+        const result = await this.provider.GetDetailsBy(item.bulletinID);
+        detalles = {
+          description: result?.description ?? '',
+          action: result?.actions ?? '',
+          reworkDetails: result?.reworkDetails ?? ''
+        };
+      } catch (err) {
+        console.warn(`No se pudo obtener detalles para el boletín ${item.bulletinID}`, err);
+      }
+
+      // Agrega fila a hoja principal
+      mainSheet.addRow({
         bulletinID: item.bulletinID ?? '',
         impressions: item.impressions ?? '',
         area: item.area ?? '',
@@ -211,11 +235,23 @@ async subscribeToData(): Promise<void> {
         creatorName: item.creatorName ?? '',
         inProduction: item.inProduction ? 'Retirado' : 'Activo'
       });
-    });
 
-    worksheet.eachRow({ includeEmpty: true }, (row, rowNumber) => {
-      row.eachCell({ includeEmpty: true }, (cell) => {
-        cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+      // Agrega fila a hoja de detalles
+      detailSheet.addRow({
+        bulletinID: item.bulletinID ?? '',
+        ...detalles
+      });
+    }
+
+    // Estilos hoja principal
+    mainSheet.eachRow({ includeEmpty: true }, (row, rowNumber) => {
+      row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+        cell.alignment = {
+          vertical: 'middle',
+          horizontal: 'center',
+          wrapText: true
+        };
+
         cell.border = {
           top: { style: 'thin' },
           left: { style: 'thin' },
@@ -224,8 +260,9 @@ async subscribeToData(): Promise<void> {
         };
       });
 
+      // Encabezado
       if (rowNumber === 1) {
-        row.eachCell({ includeEmpty: true }, (cell) => {
+        row.eachCell(cell => {
           cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
           cell.fill = {
             type: 'pattern',
@@ -236,20 +273,52 @@ async subscribeToData(): Promise<void> {
       }
     });
 
-    worksheet.autoFilter = {
+    // Estilos hoja de detalles
+    detailSheet.eachRow({ includeEmpty: true }, (row, rowNumber) => {
+      row.eachCell(cell => {
+        cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+        cell.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' }
+        };
+      });
+
+      if (rowNumber === 1) {
+        row.eachCell(cell => {
+          cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+          cell.fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'FF4472C4' }
+          };
+        });
+      }
+    });
+
+    // Filtro automático
+    mainSheet.autoFilter = {
       from: { row: 1, column: 1 },
-      to: { row: 1, column: worksheet.columns.length }
+      to: { row: 1, column: mainSheet.columns.length }
     };
 
-    workbook.xlsx.writeBuffer().then((buffer: any) => {
-      const blob = new Blob([buffer], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      });
-      FileSaver.saveAs(blob, `${nombreArchivo}.xlsx`);
-      this.notificationService.succes(`Se descargó ${nombreArchivo} correctamente`);
-      });
+    detailSheet.autoFilter = {
+      from: { row: 1, column: 1 },
+      to: { row: 1, column: detailSheet.columns.length }
+    };
+
+    // Guardar archivo
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    });
+    FileSaver.saveAs(blob, `${nombreArchivo}.xlsx`);
+    this.notificationService.succes(`Se descargó ${nombreArchivo} correctamente`);
   });
 }
+
+
 
 
   mostrarDetalle = false;

@@ -55,6 +55,20 @@ export class NotificationService {
         }
     });
     }
+    eror(message: string, title: string = 'Error'): void {
+    Swal.fire({
+        icon: 'error',
+        title: title,
+        text: message,
+        showConfirmButton: false,
+         timer: 3000,
+        background: '#333',
+        color: '#fff', // aplica al texto general
+        customClass: {
+        title: 'custom-toast-title'
+        }
+    });
+    }
 
     info(message: string, title: string = 'Información'): void {
     Swal.fire({
