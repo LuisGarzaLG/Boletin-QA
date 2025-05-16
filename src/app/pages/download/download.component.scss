@@ -3,6 +3,7 @@
   font-size: 0.85rem;
   font-weight: 500;
   margin-bottom: 6px;
+  
 }
 /* BÚSQUEDA */
 .search-container {
@@ -28,6 +29,8 @@
   color: #f00;
   display: flex;
   justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
 .form-btn{

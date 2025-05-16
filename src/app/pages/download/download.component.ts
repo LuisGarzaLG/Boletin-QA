@@ -217,43 +217,33 @@ if (MP && MP.length > 0) {
   
 
   // Función para imprimir el formulario
+   // Función para imprimir el formulario
   printMainForm() {
-  if (!this.bulletinData) {
-    this.notificationService.error('No hay boletín cargado para imprimir.');
-    return;
-  }
-
-  const maxImpressions = this.bulletinData.impressions || 0;
-  const currentPrintCount = this.currentPrints || 0; // Aquí puedes manejar el contador local o global
-
-  if (currentPrintCount >= maxImpressions) {
-    this.notificationService.eror(`El boletín ${this.bulletinData.bulletinID} ya alcanzó el límite máximo de impresiones (${maxImpressions}).`);
-    return; // Bloquea impresión
-  }
-
-  // Aquí continúa el código de impresión original...
-  const content = document.getElementById('formularioPrincipal');
-  const printWindow = window.open('', '', 'width=816,height=1056');
-
-  if (printWindow && content) {
-    const updatedContent = content.cloneNode(true) as HTMLElement;
-
-    const inputsAndTextareas = updatedContent.querySelectorAll('input, textarea');
-    inputsAndTextareas.forEach((element: Element) => {
-      if (element instanceof HTMLTextAreaElement) {
-        element.innerText = element.value;
-        element.style.background = 'none';
-        element.style.border = 'none';
-        element.style.overflow = 'visible';
-        element.style.resize = 'none';
-        element.style.height = 'auto';
-      } else if (element instanceof HTMLInputElement) {
-        element.setAttribute('value', element.value);
-        element.setAttribute('disabled', 'true');
-      }
-    });
-
-    const imageElement = updatedContent.querySelector('.encabezado-img') as HTMLImageElement;
+    const content = document.getElementById('formularioPrincipal');
+    const printWindow = window.open('', '', 'width=816,height=1056');
+  
+    if (printWindow && content) {
+      const updatedContent = content.cloneNode(true) as HTMLElement;
+  
+      const inputsAndTextareas = updatedContent.querySelectorAll('input, textarea');
+      inputsAndTextareas.forEach((element: Element) => {
+        if (element instanceof HTMLTextAreaElement) {
+          // Importantísimo: poner el value como texto dentro del textarea
+          element.innerText = element.value;
+  
+          // Opcional: aplicar los estilos que mencionaste
+          element.style.background = 'none';
+          element.style.border = 'none';
+          element.style.overflow = 'visible';
+          element.style.resize = 'none';
+          element.style.height = 'auto';
+        } else if (element instanceof HTMLInputElement) {
+          element.setAttribute('value', element.value);
+          element.setAttribute('disabled', 'true');
+        }
+      });
+  
+      const imageElement = updatedContent.querySelector('.encabezado-img') as HTMLImageElement;
       if (imageElement) {
 
         const updatedContent = content.cloneNode(true) as HTMLElement;
@@ -928,37 +918,34 @@ h2 {
       break;
   }
 //#endregion
-       printWindow.document.write(`
-      <html>
-        <head>
-          <title>Boletín de Calidad</title>
-          <style>${styles}</style>
-        </head>
-        <body>
-          ${updatedContent.innerHTML}
-        </body>
-      </html>
-    `);
+ printWindow.document.write(`
+  <html>
+    <head>
+      <title>Boletín de Calidad</title>
+      <style>${styles}</style>
+    </head>
+    <body>
+      ${updatedContent.innerHTML}
+    </body>
+  </html>
+`);
 
-    printWindow.document.close();
+printWindow.document.close();
 
-    printWindow.onafterprint = () => {
-      this.clearFields();
-      printWindow.close();
-    };
+// Aquí añadimos el evento onafterprint para limpiar los campos después de imprimir o cancelar
+printWindow.onafterprint = () => {
+  this.clearFields();
+  printWindow.close();
+};
 
-    setTimeout(() => {
-      printWindow.focus();
-      printWindow.print();
-
-      // Aquí aumentas el contador local para la sesión, no en backend
-      this.currentPrints = (this.currentPrints || 0) + 1;
-
-    }, 700);
-
-  } else {
-    console.error("No se pudo abrir la ventana de impresión o no se encontró el formulario.");
-  }
+setTimeout(() => {
+  printWindow.focus();
+  printWindow.print();
+  // No necesitamos cerrar la ventana de impresión aquí porque `onafterprint` lo manejará
+}, 700);
+} else {
+console.error("No se pudo abrir la ventana de impresión o no se encontró el formulario.");
+}
 }
 
 
