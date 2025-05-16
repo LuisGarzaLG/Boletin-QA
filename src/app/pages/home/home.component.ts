@@ -39,13 +39,13 @@ export class HomeComponent implements OnInit {
 //#region  ssesion Storage
     const currentUser = sessionStorage.getItem('currentUser');
     const currentUsers = sessionStorage;
-    console.log(currentUsers);
+    //console.log(currentUsers);
 
     if (currentUser) {
       const user = JSON.parse(currentUser);
       const email = user.email;
       const name = user.name; // Cambia `givenName` por `name` si prefieres otro campo
-      console.log('Name:', name); // Muestra el nombre en consola
+      //console.log('Name:', name); // Muestra el nombre en consola
       this.currentUser = name; // Asigna el nombre del usuario a la propiedad currentUser
     }
 
@@ -246,7 +246,8 @@ async subscribeToData(): Promise<void> {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       });
       FileSaver.saveAs(blob, `${nombreArchivo}.xlsx`);
-    });
+      this.notificationService.succes(`Se descargó ${nombreArchivo} correctamente`);
+      });
   });
 }
 
@@ -344,7 +345,7 @@ async subscribeToData(): Promise<void> {
 
   from(this.provider.updateBulletinInProduction(bulletinID, inProduction)).subscribe({
     next: async () => {
-      this.notificationService.success('Estatus actualizado correctamente');
+      this.notificationService.success(`Estatus de el Boletin ${bulletinID} actualizado correctamente`);
 
       const sources = [this.sourceTab, this.sourceTabVencidos];
 
@@ -397,6 +398,7 @@ async subscribeToData(): Promise<void> {
       this.notificationService.error('Error al actualizar el estatus');
     }
   });
+  this.sourceTab.refresh
 }
 
 

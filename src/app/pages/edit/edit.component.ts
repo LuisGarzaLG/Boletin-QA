@@ -74,8 +74,11 @@ export class EditComponent {
       confirmButtonColor: '#598bff',
       cancelButtonText: 'No, cancelar',
       cancelButtonColor: '#3b4355',
+      background: '#333',
+      color: '#fff',
       customClass: {
-        popup: 'swal2-borderless',
+        title: 'custom-toast-title',
+        popup: 'swal2-borderless' // conservas tu clase para bordes si quieres
       }
     });
 

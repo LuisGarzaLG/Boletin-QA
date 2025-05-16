@@ -108,3 +108,9 @@ input[_ngcontent-hco-c306] {
 .nb-theme-corporate ng2-smart-table table tr td:has(div:inProduction("Retirado")) {
   color: #f00 !important;
 }
+
+.custom-toast-title {
+  color: #ffcc00 !important;
+  font-weight: bold;
+  font-size: 16px;
+}

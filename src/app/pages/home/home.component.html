@@ -2,7 +2,7 @@
   <!-- Primer Tab: Bulletin QA -->
   <nb-tab tabTitle="Bulletin QA">
     <div class="button-container">
-      <button *ngIf="userRoles.includes('BulletinQA')" class="btn btn-primary" (click)="exportToExcel(sourceTab, 'Boletines_Activos')"> Descargar Excel</button>
+      <button *ngIf="userRoles.includes('BulletinQA')" class="btn btn-primary" (click)="exportToExcel(sourceTab, 'Boletines Activos')"> Descargar Excel</button>
     </div>
     <div class="table-container" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">
       <div class="table-wrapper">
@@ -14,7 +14,7 @@
   <!-- Segundo Tab: Boletines Vencidos -->
   <nb-tab tabTitle="expired bulletin">
     <div class="button-container">
-      <button *ngIf="userRoles.includes('BulletinQA')" class="btn btn-primary" (click)="exportToExcel(sourceTabVencidos, 'Boletines_Vencidos')"> Descargar Excel</button>
+      <button *ngIf="userRoles.includes('BulletinQA')" class="btn btn-primary" (click)="exportToExcel(sourceTabVencidos, 'Boletines Vencidos')"> Descargar Excel</button>
     </div>
     <div class="table-container" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">
       <div class="table-wrapper">

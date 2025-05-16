@@ -191,15 +191,19 @@ if (currentUsers) {
     confirmButtonColor: '#598bff',
     cancelButtonText: 'No, cancelar',
     cancelButtonColor: '#3b4355',
+    background: '#333',
+    color: '#fff',
     customClass: {
-      popup: 'swal2-borderless',
+      title: 'custom-toast-title',
+      popup: 'swal2-borderless'
     }
-  });
+});
+
 
   if (result.isConfirmed) {
     try {
       await this.provider.FullBulletin(fullBulletin);
-await this.provider.createPhotos(photoupload);
+      await this.provider.createPhotos(photoupload);
 
       this.bulletinform.reset({
         creatorUser: this.bulletinform.get('creatorUser')?.value,

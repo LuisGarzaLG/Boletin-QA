@@ -968,7 +968,7 @@ photoElements.forEach((photo) => {
 (photo as HTMLImageElement).src = '';
 });
 
-console.log('Campos limpiados después de la impresión o cancelación.');
+//console.log('Campos limpiados después de la impresión o cancelación.');
 }
 
 }
