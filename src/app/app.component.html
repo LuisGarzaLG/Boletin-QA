@@ -10,9 +10,10 @@
       <nb-action>
         <span>{{ currentUserName }}</span>
       </nb-action>
-      <nb-action (click)="navigateToLogin()">
-        <nb-icon icon="person-outline" [style.color]="'white'"></nb-icon>
-      </nb-action>
+<nb-action (click)="onUserIconClick()">
+  <nb-icon [icon]="isAuthenticated ? 'person-outline' : 'person-outline'" [style.color]="'white'"></nb-icon>
+</nb-action>
+
     </nb-actions>
   </nb-layout-header>
 

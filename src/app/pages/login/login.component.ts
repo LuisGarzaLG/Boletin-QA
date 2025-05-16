@@ -42,7 +42,12 @@ export class LoginComponent implements AfterViewInit {
         icon: 'warning',
         title: 'All fields are required!',
         showConfirmButton: false,
-        timer: 1800
+        timer: 1800,
+        background: '#333',
+        color: '#fff', // aplica al texto general
+        customClass: {
+        title: 'custom-toast-title'
+        }
       });
       this.loading = false;
       return;

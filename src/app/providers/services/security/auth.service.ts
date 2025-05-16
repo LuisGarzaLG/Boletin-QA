@@ -52,7 +52,12 @@ export class AuthService extends BaseProvider {
             icon: 'error',
             title: `<div class="text-dark"> ${response.error.detail} </div>`,
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
+            background: '#333',
+            color: '#fff',
+            customClass: {
+              title: 'custom-toast-title'
+            }
           });
           return false;
         }
@@ -73,15 +78,15 @@ export class AuthService extends BaseProvider {
     }
     if (rolesFromToken.includes("BULLETINPROD") && !primaryRoles.includes("BULLETINPROD")) {
       primaryRoles.push("BULLETINPROD");
-  }
+    }
     sessionStorage.setItem('roles', JSON.stringify(primaryRoles));
     this.rolesSubject.next(primaryRoles);
-}
+  }
 
-private updateSessionRoles(roles: string[]): void {
-  sessionStorage.setItem('roles', JSON.stringify(roles));
-  this.rolesSubject.next(roles);
-}
+  private updateSessionRoles(roles: string[]): void {
+    sessionStorage.setItem('roles', JSON.stringify(roles));
+    this.rolesSubject.next(roles);
+  }
 
 
   public async GetNewToken() {
@@ -98,7 +103,12 @@ private updateSessionRoles(roles: string[]): void {
             icon: 'error',
             title: `<div class="text-dark"> ${response.error.detail} </div>`,
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
+            background: '#333',
+            color: '#fff',
+            customClass: {
+              title: 'custom-toast-title'
+            }
           });
           return false;
         }
@@ -120,7 +130,12 @@ private updateSessionRoles(roles: string[]): void {
         icon: 'error',
         title: `<div class="text-dark"> No se encontró el nombre de usuario en sessionStorage. </div>`,
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
+        background: '#333',
+        color: '#fff',
+        customClass: {
+          title: 'custom-toast-title'
+        }
       });
       return false;
     }
@@ -143,7 +158,12 @@ private updateSessionRoles(roles: string[]): void {
               icon: 'error',
               title: `<div class="text-dark"> No se pudo obtener el normalizedUserName. </div>`,
               showConfirmButton: false,
-              timer: 1500
+              timer: 1500,
+              background: '#333',
+              color: '#fff',
+              customClass: {
+                title: 'custom-toast-title'
+              }
             });
             return false;
           }
@@ -154,7 +174,12 @@ private updateSessionRoles(roles: string[]): void {
             icon: 'error',
             title: `<div class="text-dark"> ${response.error.detail} </div>`,
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
+            background: '#333',
+            color: '#fff',
+            customClass: {
+              title: 'custom-toast-title'
+            }
           });
           return false;
         }
@@ -206,7 +231,12 @@ private updateSessionRoles(roles: string[]): void {
         icon: 'error',
         title: `<div class="text-dark"> No se proporcionó el username para buscar el correo. </div>`,
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
+        background: '#333',
+        color: '#fff',
+        customClass: {
+          title: 'custom-toast-title'
+        }
       });
       return null;
     }
@@ -226,7 +256,12 @@ private updateSessionRoles(roles: string[]): void {
               icon: 'error',
               title: `<div class="text-dark"> No se encontró el correo para el usuario ${userName}. </div>`,
               showConfirmButton: false,
-              timer: 1500
+              timer: 1500,
+              background: '#333',
+              color: '#fff',
+              customClass: {
+                title: 'custom-toast-title'
+              }
             });
             return null;
           }
@@ -237,7 +272,12 @@ private updateSessionRoles(roles: string[]): void {
             icon: 'error',
             title: `<div class="text-dark"> ${response.error.detail} </div>`,
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
+            background: '#333',
+            color: '#fff',
+            customClass: {
+              title: 'custom-toast-title'
+            }
           });
           return null;
         }
@@ -250,7 +290,12 @@ private updateSessionRoles(roles: string[]): void {
           icon: 'error',
           title: `<div class="text-dark"> Error al intentar obtener el correo del usuario ${userName}. </div>`,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
+          background: '#333',
+          color: '#fff',
+          customClass: {
+            title: 'custom-toast-title'
+          }
         });
         return null;
       });

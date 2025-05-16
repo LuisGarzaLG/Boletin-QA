@@ -3,6 +3,8 @@ import { AuthService } from './providers/services/security/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { qualityrequestsprovaider } from './providers/services/quality request/qualityBrequestsprovaider';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,9 +12,7 @@ import { qualityrequestsprovaider } from './providers/services/quality request/q
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'RRHH';
-  isLoggedIn: boolean =  false;
   isAuthenticated = false;
-  GownChangeCount: number = 0;
   private authSubscription!: Subscription;
 
   menuItems: any[] = [];
@@ -22,7 +22,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   isSidebarExpanded: boolean = false;
 
-  // Agregar logo
   logo = 'https://eu.landisgyr.com/hs-fs/hubfs/logo_landis_gyr_white.png?width=161&name=logo_landis_gyr_white.png';
 
   constructor (private authService: AuthService, private router: Router, private provider: qualityrequestsprovaider) {}
@@ -35,20 +34,16 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isAuthenticated = authStatus;
       }
     );
-    
 
     this.rolesSubscription = this.authService.getRolesObservable().subscribe((roles: string[]) => {
       this.userRoles = roles;
-
       this.currentUserName = this.authService.getCurrentUserName();
-
       this.menuItems = [
         {
           title: 'Inicio',
           icon: 'home-outline',
           link: '/pages/home'
         },
-        
         {
           title: 'Gestión',
           icon: 'people-outline',
@@ -85,8 +80,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const roles = JSON.parse(sessionStorage.getItem('roles') || '[]');
     this.authService.updateRoles(roles);
-
-    
   }
 
   filterMenuItemsByRoles(items: any[]): any[] {
@@ -107,18 +100,38 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.userRoles.some(role => allowedRoles.includes(role));
   }
 
-  navigateToLogin() {
-    this.logout();
-    this.router.navigate(['auth/login']); 
+  onUserIconClick() {
+    if (this.isAuthenticated) {
+      this.confirmLogout();
+    } else {
+      this.router.navigate(['auth/login']);
+    }
   }
 
-  logout(): void {
-    sessionStorage.clear();
-    this.authService.logout();
-    this.currentUserName = '';
-    this.isLoggedIn = false;
-    this.isAuthenticated = false;
-    this.isSidebarExpanded = false;
+  confirmLogout(): void {
+    Swal.fire({
+      title: '¿Deseas cerrar sesión?',
+      text: 'Tu sesión actual se cerrará.',
+      icon: 'warning',
+      showCancelButton: true,
+      background: '#333',
+      color: '#fff',
+      customClass: {
+        title: 'custom-toast-title',
+        popup: 'swal2-borderless'},
+      confirmButtonColor: '#4370fc',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        sessionStorage.clear();
+        this.authService.logout();
+        this.currentUserName = '';
+        this.isAuthenticated = false;
+        this.isSidebarExpanded = false;
+      }
+    });
   }
 
   toggleSidebar(): void {
@@ -132,5 +145,6 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  
+
+
 }
