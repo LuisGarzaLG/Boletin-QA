@@ -1,10 +1,13 @@
 nb-card {
-  box-sizing: border-box;
-  background: linear-gradient(to bottom right, #fff, #fff); /* Fondo con leve gradiente */
+  box-sizing: border-box !important;
+  background: linear-gradient(to bottom right, #fff, #fff) !important; /* Fondo con leve gradiente */
   border-radius: 20px !important;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra suave y difusa */
-  border: 1px solid #e0e0e0; /* Borde sutil */
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important; /* Sombra suave y difusa */
+  border: 1px solid #e0e0e0 !important; /* Borde sutil */
+  transition: box-shadow 0.3s ease, transform 0.2s ease !important;
+  margin-bottom: 1.25 rem !important;
+  height: auto !important;
+
 }
 
 
@@ -56,7 +59,8 @@ button {
 }
 
 .input-container input {
-  width: 100%;
+  width: 390px;
+  max-width: 100% !important;
   padding: 12px 12px 12px 8px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -65,7 +69,7 @@ button {
 
 
 .input-container select {
-  width: 100%;
+  width: 390px;
   padding: 10px 12px 10px 0px;
   font-size: 16px;
   border: 1px solid #e4e9f2;
@@ -289,10 +293,11 @@ option {
 .input-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  column-gap: 10px;
+  gap: 10px !important;
+  column-gap: 10px !important;
   width: 100%;
   margin: 0; /* Aseguramos que no haya márgenes extra */
+      justify-content: space-between;
 }
 
 /* Para el input-container de "Area", lo hacemos más ancho */
