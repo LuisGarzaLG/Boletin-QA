@@ -109,13 +109,15 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.userRoles.some(role => allowedRoles.includes(role));
   }
 
-  onUserIconClick() {
-    if (this.isAuthenticated) {
-      this.confirmLogout();
-    } else {
-      this.router.navigate(['auth/login']);
-    }
+onUserIconClick() {
+  if (this.authService.IsLoggedIn()) {
+    // Si hay sesión activa, preguntar antes de cerrar
+    this.confirmLogout();
+  } else {
+    // Si no hay sesión, redirigir al login
+    this.router.navigate(['auth/login']);
   }
+}
 
   confirmLogout(): void {
     Swal.fire({
@@ -139,6 +141,8 @@ export class AppComponent implements OnInit, OnDestroy {
         this.currentUserName = '';
         this.isAuthenticated = false;
         this.isSidebarExpanded = false;
+
+        this.router.navigate(['/pages/home']);
       }
     });
   }
