@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { qualityrequestsprovaider } from './providers/services/quality request/qualityBrequestsprovaider';
 import Swal from 'sweetalert2';
+import { NbMenuService } from '@nebular/theme';
 
 @Component({
   selector: 'app-root',
@@ -24,10 +25,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   logo = 'https://eu.landisgyr.com/hs-fs/hubfs/logo_landis_gyr_white.png?width=161&name=logo_landis_gyr_white.png';
 
-  constructor (private authService: AuthService, private router: Router, private provider: qualityrequestsprovaider) {}
+  constructor (private authService: AuthService, private router: Router, private provider: qualityrequestsprovaider,private menuService: NbMenuService) {}
 
   ngOnInit(): void {
     this.isAuthenticated = this.authService.IsLoggedIn();
+    
 
     this.authSubscription = this.authService.isAuthenticated$.subscribe(
       (authStatus) => {
@@ -76,11 +78,18 @@ export class AppComponent implements OnInit, OnDestroy {
         },
       ];
       this.menuItems = this.filterMenuItemsByRoles(this.menuItems);
+
+      this.menuService.onItemClick().subscribe(() => {
+    this.isSidebarExpanded = false;
+  });
+      
     });
 
     const roles = JSON.parse(sessionStorage.getItem('roles') || '[]');
     this.authService.updateRoles(roles);
+    
   }
+  
 
   filterMenuItemsByRoles(items: any[]): any[] {
     return items.filter(item => {

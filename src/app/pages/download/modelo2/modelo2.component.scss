@@ -321,9 +321,10 @@ h2 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   }
   .formularioPrincipal-card {
-    background-color: transparent;
-    border: 0px hidden;
-    background: transparent;
+    border: 0px hidden !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: 0 8px 20px #00000000 !important;
   }
   
   .margin {

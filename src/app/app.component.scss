@@ -1,3 +1,8 @@
+::ng-deep nb-sidebar.custom-sidebar {
+  transition: width 0.3s ease; // transición suave al cambiar de estado
+}
+
+
 nb-layout-header {
     background: linear-gradient(145deg, #20a0c0, #15c41e);
     color: white;
