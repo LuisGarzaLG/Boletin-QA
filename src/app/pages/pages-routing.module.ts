@@ -6,6 +6,7 @@ import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { DeleteComponent } from './delete/delete.component';
 import { DownloadComponent } from './download/download.component';
+import { TrainingComponent } from './training/training.component';
 
 
 const routes: Routes =[
@@ -33,6 +34,12 @@ const routes: Routes =[
             component: DeleteComponent,
             loadChildren:() => import ('./delete/delete.module').then(m => m.DeleteModule)
           },
+          {
+            path: 'training',
+            component: TrainingComponent,
+            loadChildren:()=> import ('./training/training.module').then(m => m.TrainingModule)
+          }
+          ,
           {
             path: 'download',
             component: DownloadComponent,

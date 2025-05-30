@@ -10,12 +10,14 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { DeleteComponent } from './delete/delete.component';
 import { DownloadComponent } from './download/download.component';
+import { TrainingComponent } from './training/training.component';
 //import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
     PagesComponent,
     LoginComponent,
+    TrainingComponent,
   ],
   imports: [
     CommonModule,

@@ -9,6 +9,7 @@ import * as FileSaver from 'file-saver';
 import { CheckboxRenderComponent } from './checkbox-render/checkbox-render.component';
 import * as ExcelJS from 'exceljs';
 import { from } from 'rxjs';
+import axios from 'axios';
 
 @Component({
   selector: 'app-home',
@@ -180,7 +181,7 @@ exportToExcel(source: LocalDataSource, nombreArchivo: string): void {
     const mainSheet = workbook.addWorksheet('Bulletin QA');
     const detailSheet = workbook.addWorksheet('Detalles');
 
-    // Hoja principal
+    // === 2. DEFINIR COLUMNAS Y ENCABEZADO ===
     mainSheet.columns = [
       { header: 'Número de Boletín', key: 'bulletinID', width: 20 },
       { header: 'Impresiones', key: 'impressions', width: 20 },
@@ -192,10 +193,109 @@ exportToExcel(source: LocalDataSource, nombreArchivo: string): void {
       { header: 'Proveedor', key: 'supplier', width: 20 },
       { header: 'Nombre del Problema', key: 'name', width: 20 },
       { header: 'Modo de Falla', key: 'failureName', width: 20 },
-      { header: 'Id Previo', key: 'previousID', width: 20 },
-      { header: 'Usuario', key: 'creatorName', width: 20 },
-      { header: 'Estatus', key: 'inProduction', width: 15 }
+      { header: 'Id Previo', key: 'previousID', width: 20 }
     ];
+
+// 2. Agrega filas vacías manualmente (1 a la 5)
+for (let i = 0; i <= 4; i++) {
+  mainSheet.getRow(i).values = [];
+}
+mainSheet.mergeCells('A1:I1');
+// Establecer un color de fondo a A1:K1
+const headerRange = ['A1','B1','C1','D1','E1','F1','G1','H1','I1'];
+headerRange.forEach(cellAddress => {
+  const cell = mainSheet.getCell(cellAddress);
+  cell.fill = {
+    type: 'pattern',
+    pattern: 'solid',
+    fgColor: { argb: 'FFE4E98B' }  // Fondo blanco
+  };
+  cell.border = {
+  top: undefined,
+  left: undefined,
+  bottom: undefined,
+  right: undefined
+};
+// Eliminar bordes
+});
+
+// Reducir altura de la fila 1
+mainSheet.getRow(1).height = 8;
+
+const whiteFill: ExcelJS.FillPattern = {
+  type: 'pattern',
+  pattern: 'solid',
+  fgColor: { argb: 'FFFFFFFF' }
+};
+
+// Aplicar solo fondo blanco sin bordes al rango A2:I4
+for (let row = 2; row <= 4; row++) {
+  for (let col = 1; col <= 11; col++) {
+    const cell = mainSheet.getCell(row, col);
+    cell.fill = whiteFill;
+  }
+
+  for(let row = 1; row <= 4; row++){
+    for (let col = 10; col <= 11; col++) {
+    const cell = mainSheet.getCell(row, col);
+    cell.fill = whiteFill;
+  }
+  } 
+}
+
+// Ahora las celdas con contenido
+mainSheet.mergeCells('A2:I2');
+const cellA2 = mainSheet.getCell('A2');
+cellA2.value = 'Boletin de Calidad';
+cellA2.font = { bold: true, size: 14 };
+cellA2.alignment = { horizontal: 'left', vertical: 'justify' };
+
+mainSheet.mergeCells('A3:C3');
+const cellA3 = mainSheet.getCell('A3');
+cellA3.value = 'Doc Number: RQ-F-009-004';
+cellA3.font = { bold: true };
+cellA3.alignment = { horizontal: 'left', vertical: 'middle' };
+
+mainSheet.mergeCells('D3:F3');
+const cellD3 = mainSheet.getCell('D3');
+cellD3.value = 'Revision: 3';
+cellD3.font = { bold: true };
+cellD3.alignment = { horizontal: 'left', vertical: 'middle' };
+
+mainSheet.mergeCells('G3:I3');
+const cellG3 = mainSheet.getCell('G3');
+cellG3.value = 'Issued: 03/27/2025';
+cellG3.font = { bold: true };
+cellG3.alignment = { horizontal: 'left', vertical: 'middle' };
+
+mainSheet.mergeCells('A4:C4');
+const cellA4 = mainSheet.getCell('A4');
+cellA4.value = 'Approved By: Viviana Niño';
+cellA4.font = { bold: true };
+cellA4.alignment = { horizontal: 'left', vertical: 'middle' };
+
+mainSheet.mergeCells('D4:F4');
+const cellD4 = mainSheet.getCell('D4');
+cellD4.value = 'Classification: Internal';
+cellD4.font = { bold: true };
+cellD4.alignment = { horizontal: 'left', vertical: 'middle' };
+
+// Agregar imagen al lado derecho
+const imageBuffer = await fetch('/assets/images/logo.png').then(res => res.arrayBuffer());
+const imageId = workbook.addImage({
+  buffer: imageBuffer,
+  extension: 'png'
+});
+
+
+mainSheet.addImage(imageId, 'J2:K4');
+
+// 3. Encabezado en la fila 6 (exactamente)
+mainSheet.getRow(5).values = mainSheet.columns.map(col => col.header as ExcelJS.CellValue);
+
+
+
+
 
     // Hoja de detalles
     detailSheet.columns = [
@@ -205,6 +305,8 @@ exportToExcel(source: LocalDataSource, nombreArchivo: string): void {
       { header: 'Retrabajo', key: 'reworkDetails', width: 40 }
     ];
 
+
+    // === 3. AGREGAR FILAS ===
     for (const item of data) {
       let detalles = { description: '', action: '', reworkDetails: '' };
 
@@ -219,7 +321,7 @@ exportToExcel(source: LocalDataSource, nombreArchivo: string): void {
         console.warn(`No se pudo obtener detalles para el boletín ${item.bulletinID}`, err);
       }
 
-      // Agrega fila a hoja principal
+      // Fila hoja principal
       mainSheet.addRow({
         bulletinID: item.bulletinID ?? '',
         impressions: item.impressions ?? '',
@@ -231,49 +333,68 @@ exportToExcel(source: LocalDataSource, nombreArchivo: string): void {
         supplier: item.supplier ?? '',
         name: item.name ?? '',
         failureName: item.failureName ?? '',
-        previousID: item.previousID ?? '',
-        creatorName: item.creatorName ?? '',
-        inProduction: item.inProduction ? 'Retirado' : 'Activo'
+        previousID: item.previousID ?? ''
       });
 
-      // Agrega fila a hoja de detalles
+      // Fila hoja detalles
       detailSheet.addRow({
         bulletinID: item.bulletinID ?? '',
         ...detalles
       });
     }
 
-    // Estilos hoja principal
+    // === 4. ESTILOS HOJA PRINCIPAL ===
     mainSheet.eachRow({ includeEmpty: true }, (row, rowNumber) => {
-      row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
-        cell.alignment = {
-          vertical: 'middle',
-          horizontal: 'center',
-          wrapText: true
-        };
+      row.eachCell(cell => {
+        // Alineación personalizada según la fila
+        if (rowNumber >= 5) {
+          cell.alignment = {
+            vertical: 'middle',
+            horizontal: 'center',
+            wrapText: true
+          };
+        } else if (rowNumber >= 2 && rowNumber <= 4) {
+          cell.alignment = {
+            vertical: 'middle',
+            horizontal: 'left',
+            wrapText: true
+          };
+        }
 
-        cell.border = {
-          top: { style: 'thin' },
-          left: { style: 'thin' },
-          bottom: { style: 'thin' },
-          right: { style: 'thin' }
-        };
+        // Bordes solo desde la fila 5 en adelante
+        if (rowNumber >= 5) {
+          cell.border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' }
+          };
+        } else {
+          cell.border = {
+            top: undefined,
+            left: undefined,
+            bottom: undefined,
+            right: undefined
+          };
+        }
       });
 
-      // Encabezado
-      if (rowNumber === 1) {
+      // Encabezado fila 5
+      if (rowNumber === 5) {
         row.eachCell(cell => {
-          cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+          cell.font = { bold: true, color: { argb: 'FF000000' } };
           cell.fill = {
             type: 'pattern',
             pattern: 'solid',
-            fgColor: { argb: 'FF4472C4' }
+            fgColor: { argb: 'FF6CFF00' }
           };
         });
       }
     });
 
-    // Estilos hoja de detalles
+
+
+    // === 5. ESTILOS HOJA DETALLES ===
     detailSheet.eachRow({ includeEmpty: true }, (row, rowNumber) => {
       row.eachCell(cell => {
         cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
@@ -287,20 +408,20 @@ exportToExcel(source: LocalDataSource, nombreArchivo: string): void {
 
       if (rowNumber === 1) {
         row.eachCell(cell => {
-          cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+          cell.font = { bold: true, color: { argb: 'FF000000' } };
           cell.fill = {
             type: 'pattern',
             pattern: 'solid',
-            fgColor: { argb: 'FF4472C4' }
+            fgColor: { argb: 'FF6CFF00' }
           };
         });
       }
     });
 
-    // Filtro automático
+    // Filtros
     mainSheet.autoFilter = {
-      from: { row: 1, column: 1 },
-      to: { row: 1, column: mainSheet.columns.length }
+      from: { row: 5, column: 1 },
+      to: { row: 5, column: mainSheet.columns.length }
     };
 
     detailSheet.autoFilter = {
@@ -308,7 +429,7 @@ exportToExcel(source: LocalDataSource, nombreArchivo: string): void {
       to: { row: 1, column: detailSheet.columns.length }
     };
 
-    // Guardar archivo
+    // === 6. GUARDAR ARCHIVO ===
     const buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob([buffer], {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -316,8 +437,8 @@ exportToExcel(source: LocalDataSource, nombreArchivo: string): void {
     FileSaver.saveAs(blob, `${nombreArchivo}.xlsx`);
     this.notificationService.succes(`Se descargó ${nombreArchivo} correctamente`);
   });
+  
 }
-
 
 
 
