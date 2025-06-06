@@ -16,9 +16,9 @@ export class Modelo1Component {
   onSearchBoth(): void {
     if (this.bulletinform.valid && this.detailsform.valid) {
       // Lógica que deseas ejecutar cuando el formulario sea válido
-      console.log("Formulários válidos");
+      //console.log("Formulários válidos");
     } else {
-      console.log("Formulários inválidos");
+      //console.log("Formulários inválidos");
     }
   }
 

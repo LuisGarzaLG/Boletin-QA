@@ -140,7 +140,8 @@
 
 /* Estilo para los inputs */
 .input-container-2 textarea {
-  width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
   height: 100px;
   min-height: fit-content;
   padding: 12px 12px 12px 8px;

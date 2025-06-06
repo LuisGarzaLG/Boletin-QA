@@ -33,6 +33,7 @@ import { Modelo2Component } from './modelo2/modelo2.component';
     NbTabsetModule,
     NbSelectModule,
     NbToastrModule.forRoot()
-  ]
+  ],
+  exports: [Modelo1Component, Modelo2Component]
 })
 export class DownloadModule { }

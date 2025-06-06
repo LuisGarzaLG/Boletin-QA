@@ -2,12 +2,12 @@ import { Injectable } from "@angular/core";
 import { BaseProvider } from "../base.provider";
 import { BehaviorSubject } from "rxjs";
 import { HttpResponse } from "@angular/common/http";
-import { CreateBulletinDto, CreateBulletinDto2, Details, FullBulletinDto, GetAllBulletins,PhotoUploadDto } from "../../models/quality-request-all-models";
+import { CreateBulletinDto, CreateBulletinDto2, Details, FullBulletinDto, GetAllBulletins,PhotoUploadDto,Employee,EmployeeTrainingDto,CreateTrainingDto} from "../../models/quality-request-all-models";
 import { NotificationService } from "../notification/notification.service";
 import { ApiService } from "../api.provider"; // Asegúrate de importar ApiService
 import { ToastrProvider } from "../../toastr/toastr-service"; // Asegúrate de importar ToastrProvider
 import { TokenStorageService } from "../security/token-storage.service"; // Asegúrate de importar TokenStorageService
-
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: "root" })
 export class qualityrequestsprovaider extends BaseProvider {
@@ -29,18 +29,81 @@ export class qualityrequestsprovaider extends BaseProvider {
     private endpointgetdetailsbyid = '/api/v1/qa/getdetailsbyid';
     private endpointgetbulletinphotos = '/api/v1/qa/getbulletinphotos';
     private endpointupdatebulletinqa = '/api/v1/qa/updatebulletinqa';
-    private endpointupdatebulletininproduction = '/api/v1/qa/updatebulletininproduction'
-    private endpointGetallbulletinsnonExpired = '/api/v1/qa/getallbulletinsonexpired/'
-    
+    private endpointupdatebulletininproduction = '/api/v1/qa/updatebulletininproduction';
+    private endpointGetallbulletinsnonExpired = '/api/v1/qa/getallbulletinsonexpired';
+    private endpointGetNextBulletin = '/api/v1/qa/getnextbulletinid';
+    private endpointSearchEmployee = '/api/v1/esd/getemployeebynumber';
+    private endpointGetEmployeeTraining = '/api/v1/qa/getemployeetrainingbyid';
+    private endpointCreateTraining = '/api/v1/qa/createtraining'
 
+public async CreateTraining(createTrainingDto: CreateTrainingDto[]): Promise<void> {
+  try {
+    return await this.service.Post<void>(this.endpointCreateTraining, createTrainingDto)
+      .then(response => {
+        if (response.status >= 200 && response.status <= 299) {
+          this.notificationService.info('Training creado con éxito');
+          return;
+        }
+      });
+  } catch (error) {
+    this.notificationService.warning('Ocurrió un problema al crear el training');
+    console.error(error);
+  }
+}
+
+
+    public async GetEmployeeTrainingByBulletinId(bulletinId: string): Promise<EmployeeTrainingDto[] | null> {
+        if (!bulletinId || typeof bulletinId !== 'string') {
+        console.error('ID de boletín inválido:', bulletinId);
+        return null;
+        }
+
+        try {
+        const url = `${this.endpointGetEmployeeTraining}/${bulletinId}`;
+        const result = await this.service.Get<EmployeeTrainingDto>(url);
+        return result.body;
+        } catch (error) {
+        console.error('Error al obtener el entrenamiento de empleados:', error);
+        return null;
+        }
+    }
+    public async getEmployeeByNumber(empNumber: number): Promise<Employee | null> {
+    if (!Number.isInteger(empNumber) || empNumber <= 0) {
+        console.error('Número de empleado inválido:', empNumber);
+        return null;
+    }
+
+    try {
+        const response = await this.service.Get<Employee>(`${this.endpointSearchEmployee}/${empNumber}`);
+
+        if (response?.body) {
+        return response.body;
+        }
+
+        console.warn('Empleado no encontrado o respuesta vacía');
+        return null;
+
+    } catch (error: any) {
+        console.error('Error al obtener los datos del empleado:', error.message || error);
+        return null;
+    }
+    }
+public async GetNextBulletinId(): Promise<string> {
+    try {
+      const result = await this.service.GetString(this.endpointGetNextBulletin);
+       const id = result.body ?? result;
+      return id;
+    } catch (error) {
+      console.error('Error al obtener nextBulletinId:', error);
+      return '';
+    }
+  }
     public async GetAllBulletinsNonExpired(): Promise<GetAllBulletins[]> {
         return await this.service.Get<GetAllBulletins[]>(this.endpointGetallbulletinsnonExpired)
             .then((data: HttpResponse<GetAllBulletins[]>) => {
                 return data.body || [];
             });
     }
-
-    
     public async GetAllBulletin(): Promise<GetAllBulletins[]> {
         return await this.service.Get<GetAllBulletins[]>(this.endpointgetallbulletins)
             .then((data: HttpResponse<GetAllBulletins[]>) => {

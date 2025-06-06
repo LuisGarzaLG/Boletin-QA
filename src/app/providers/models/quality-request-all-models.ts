@@ -107,3 +107,35 @@ export interface UBiP{
   bulletinID: string,
   inProduction: boolean
 }
+
+export interface BulletinCounters{
+  year: number,
+  LastNumber: number
+}
+
+export interface Employee{
+  employeeNumber:number,
+  name:string,
+  area:string,
+  supervisor: string,
+  shift: string,
+  jobDescription: string
+}
+
+
+export interface EmployeeTrainingDto {
+  id: number;
+  bulletinId: string;
+  employeeNumber: number;
+  fullName: string;
+  lastDate: string;
+}
+
+
+export interface CreateTrainingDto{
+  id: number;
+  bulletinId: string;
+  employeeNumber: number;
+  fullName: string;
+  lastDate: string;
+}

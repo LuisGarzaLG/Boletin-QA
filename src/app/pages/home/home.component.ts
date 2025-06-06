@@ -40,20 +40,20 @@ export class HomeComponent implements OnInit {
 //#region  ssesion Storage
     const currentUser = sessionStorage.getItem('currentUser');
     const currentUsers = sessionStorage;
-    //console.log(currentUsers);
+    ////console.log(currentUsers);
 
     if (currentUser) {
       const user = JSON.parse(currentUser);
       const email = user.email;
       const name = user.name; // Cambia `givenName` por `name` si prefieres otro campo
-      //console.log('Name:', name); // Muestra el nombre en consola
+      ////console.log('Name:', name); // Muestra el nombre en consola
       this.currentUser = name; // Asigna el nombre del usuario a la propiedad currentUser
     }
 
     const rolesStorage = sessionStorage.getItem('roles');
     if (rolesStorage) {
       this.userRoles = JSON.parse(rolesStorage); // ["BulletinQA", "ESDManager"]
-      //console.log('Roles:', this.userRoles);
+      ////console.log('Roles:', this.userRoles);
       setTimeout(() => {
         const textareas = document.querySelectorAll('textarea');
         textareas.forEach((ta: any) => this.autoResize(ta));
@@ -167,7 +167,7 @@ async subscribeToData(): Promise<void> {
     await this.loadNonExpiredBulletins();
 
   } catch (error) {
-    console.error('Error cargando datos:', error);
+    //console.error('Error cargando datos:', error);
     this.notificationService.error('No se pudieron cargar los datos de boletines');
   } finally {
     this.loading = false;
@@ -318,7 +318,7 @@ mainSheet.getRow(5).values = mainSheet.columns.map(col => col.header as ExcelJS.
           reworkDetails: result?.reworkDetails ?? ''
         };
       } catch (err) {
-        console.warn(`No se pudo obtener detalles para el boletín ${item.bulletinID}`, err);
+        //console.warn(`No se pudo obtener detalles para el boletín ${item.bulletinID}`, err);
       }
 
       // Fila hoja principal
@@ -459,7 +459,7 @@ mainSheet.getRow(5).values = mainSheet.columns.map(col => col.header as ExcelJS.
     const bulletinsNonExpired = await this.provider.GetAllBulletinsNonExpired();
     this.sourceTabVencidos.load(bulletinsNonExpired);
   } catch (error) {
-    console.error('Error cargando boletines no vencidos:', error);
+    //console.error('Error cargando boletines no vencidos:', error);
     this.notificationService.error('No se pudieron cargar los boletines no vencidos');
   }
 }
@@ -511,7 +511,7 @@ mainSheet.getRow(5).values = mainSheet.columns.map(col => col.header as ExcelJS.
     this.detallesSource.load(detallesBoletin);
     this.mostrarDetalle = true;
   } catch (error) {
-    console.error('Error al cargar detalle del boletín:', error);
+    //console.error('Error al cargar detalle del boletín:', error);
     this.notificationService.error('No se pudo cargar el detalle del boletín');
   }
 }
@@ -562,9 +562,9 @@ mainSheet.getRow(5).values = mainSheet.columns.map(col => col.header as ExcelJS.
 
         // Determinar la tabla destino
         const today = new Date();
-        console.log('La fecha de hoy es:',today)
+        //console.log('La fecha de hoy es:',today)
         const isExpired = new Date(foundItem.endDate) <= today;
-        console.log('Expirado:',isExpired)
+        //console.log('Expirado:',isExpired)
 
         // Mover el ítem a la tabla correspondiente
         

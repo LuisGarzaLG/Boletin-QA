@@ -1,56 +1,53 @@
 <nb-card class="bulletin-card full-width-card">
   <nb-card-header class="card-title">Eliminar Boletín</nb-card-header>
   <nb-card-body class="bulletin-body">
+    
     <!-- Formulario de búsqueda -->
-    <form [formGroup]="searchForm">
+    <form [formGroup]="searchForm" class="form-search">
       <div class="form-container">
         <div class="input-row-3">
           <div class="input-container">
-            <input type="text" nbInput formControlName="bulletinID" placeholder=" " class="form-control" (keydown.enter)="onSearchBoth()"/>
+            <input type="text" nbInput formControlName="bulletinID" placeholder=" " class="form-control" (keydown.enter)="onSearchBoth()" />
             <label for="bulletinID" class="floating-label">Número de Boletín</label>
           </div>
         </div>
-      </div>
-
-      <div class="button-container">
-        <!-- Botón para realizar ambas búsquedas -->
-        <button  type="button" outline status="info" (click)="onSearchBoth()" [disabled]="searchForm.invalid">Buscar</button>
+        <div class="button-container">
+          <button type="button" nbButton outline status="info" (click)="onSearchBoth()" [disabled]="searchForm.invalid">Buscar</button>
+        </div>
       </div>
     </form>
 
-    <!-- Mostrar datos del boletín si se encontró -->
-    <div *ngIf="isEditing">
-      <div class="info-cards-container">
-        <!-- Información del boletín -->
-        <nb-card class="info-card" *ngIf="bulletinData">
-          <nb-card-header>Información del Boletín</nb-card-header>
-          <nb-card-body>
-            <p><strong>ID:</strong> {{ bulletinData.bulletinID }}</p>
-            <p><strong>Área:</strong> {{ bulletinData.area }}</p>
-            <p><strong>Parte:</strong> {{ bulletinData.partNumber }}</p>
-            <p><strong>Fecha de Inicio:</strong> {{ bulletinData.startDate | date:'yyyy-MM-dd' }}</p>
-            <p><strong>Fecha de Fin:</strong> {{ bulletinData.endDate | date:'yyyy-MM-dd' }}</p>
-            <p><strong>Cliente:</strong> {{ bulletinData.customer }}</p>
-            <p><strong>Proveedor:</strong> {{ bulletinData.supplier }}</p>
-            <p><strong>Nombre:</strong> {{ bulletinData.name }}</p>
-            <p><strong>Falla:</strong> {{ bulletinData.failureName }}</p>
-            <p><strong>ID Previo:</strong> {{ bulletinData.previousID }}</p>
-            <p><strong>Usuario:</strong> {{ bulletinData.creatorUser }}</p>
-            <p><strong>Nombre de usuario:</strong> {{ bulletinData.creatorName }}</p>
-            <p><strong>Limite de Impresiones:</strong> {{ bulletinData.impressions }}</p>
-            <p><strong>Estatus:</strong> {{ bulletinData.inProduction ? 'Retirado' : 'Activo' }}</p>
+    <!-- Mostrar datos si hay resultados -->
+    <div *ngIf="isEditing" class="data-section">
 
+      <div class="info-cards-container">
+        <nb-card class="info-card" *ngIf="bulletinData">
+          <nb-card-header class="card-title2">Información del Boletín</nb-card-header>
+          <nb-card-body class="info-grid">
+            <div class="info-row"><label>ID:</label><span>{{ bulletinData.bulletinID }}</span></div>
+            <div class="info-row"><label>Área:</label><span>{{ bulletinData.area }}</span></div>
+            <div class="info-row"><label>Parte:</label><span>{{ bulletinData.partNumber }}</span></div>
+            <div class="info-row"><label>Inicio:</label><span>{{ bulletinData.startDate | date:'yyyy-MM-dd' }}</span></div>
+            <div class="info-row"><label>Fin:</label><span>{{ bulletinData.endDate | date:'yyyy-MM-dd' }}</span></div>
+            <div class="info-row"><label>Cliente:</label><span>{{ bulletinData.customer }}</span></div>
+            <div class="info-row"><label>Proveedor:</label><span>{{ bulletinData.supplier }}</span></div>
+            <div class="info-row"><label>Nombre:</label><span>{{ bulletinData.name }}</span></div>
+            <div class="info-row"><label>Falla:</label><span>{{ bulletinData.failureName }}</span></div>
+            <div class="info-row"><label>ID Previo:</label><span>{{ bulletinData.previousID }}</span></div>
+            <div class="info-row"><label>Usuario:</label><span>{{ bulletinData.creatorUser }}</span></div>
+            <div class="info-row"><label>Nombre Usuario:</label><span>{{ bulletinData.creatorName }}</span></div>
+            <div class="info-row"><label>Impresiones:</label><span>{{ bulletinData.impressions }}</span></div>
+            <div class="info-row"><label>Estatus:</label><span>{{ bulletinData.inProduction ? 'Retirado' : 'Activo' }}</span></div>
           </nb-card-body>
         </nb-card>
 
         <!-- Detalles del boletín -->
         <nb-card class="info-card" *ngIf="detailsData">
-          <nb-card-header>Detalles del Boletín</nb-card-header>
-          <nb-card-body>
-            
-            <p><strong>Descripción:</strong> {{ detailsData.description }}</p>
-            <p><strong>Acciones:</strong> {{ detailsData.actions }}</p>
-            <p><strong>Detalles de Retrabajo:</strong> {{ detailsData.reworkDetails }}</p>
+          <nb-card-header class="card-title2">Detalles del Boletín</nb-card-header>
+          <nb-card-body class="info-grid">
+            <div class="info-row full-width"><label>Descripción:</label><span>{{ detailsData.description }}</span></div>
+            <div class="info-row full-width"><label>Acciones:</label><span>{{ detailsData.actions }}</span></div>
+            <div class="info-row full-width"><label>Detalles de Retrabajo:</label><span>{{ detailsData.reworkDetails }}</span></div>
           </nb-card-body>
         </nb-card>
       </div>
@@ -58,6 +55,7 @@
       <div class="delete-button-container">
         <button nbButton status="danger" class="delete-button" (click)="onDeleteSubmit()">Eliminar Boletín</button>
       </div>
+
     </div>
   </nb-card-body>
 </nb-card>

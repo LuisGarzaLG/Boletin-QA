@@ -56,7 +56,7 @@ export class EditComponent {
         this.notificationService.warning('Boletín no encontrado');
       }
     }).catch(err => {
-      console.error('Error al buscar el boletín:', err);
+      //console.error('Error al buscar el boletín:', err);
       this.notificationService.error('Ocurrió un error al buscar el boletín');
     });
     
@@ -107,7 +107,7 @@ export class EditComponent {
       }
     };
 
-    console.log('Enviando a la API:', bulletinData);
+    //console.log('Enviando a la API:', bulletinData);
     this.qualityrequestsprovaider.updateBulletinData(bulletinData).then(() => {
       this.notificationService.info('Boletín actualizado correctamente');
 

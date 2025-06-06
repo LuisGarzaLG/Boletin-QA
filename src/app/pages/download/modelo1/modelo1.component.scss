@@ -296,4 +296,9 @@ h2 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.50);
     border-radius: 0px !important;
   }
- 
+ .scaled-wrapper {
+  transform-origin: top left;
+  transform: scale(0.45); // ajustá esto para que quepa en 850x600
+  width: 2000px;  // A4 horizontal a 96 DPI (si lo estás diseñando para impresión)
+  height: 794px;
+}

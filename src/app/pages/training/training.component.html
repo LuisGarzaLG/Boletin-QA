@@ -1,5 +1,120 @@
-<nb-card>
-    <nb-card-body>
-         Card
-    </nb-card-body>
+<div class="training-container">
+  <!-- Columna izquierda: Formulario -->
+  <div class="form-column">
+    <nb-card class="training-card">
+      <nb-card-header class="training-header">
+        Registrar Entrenamiento
+      </nb-card-header>
+      <nb-card-body class="training-body">
+        <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()" class="training-form">
+          <!-- Fila de campos -->
+          <div class="form-row">
+            <!-- ID del Empleado -->
+            <div class="form-group small">
+              <input nbInput type="text" id="employeeId" placeholder=" " formControlName="empNumber" />
+              <label for="employeeId">ID del Empleado</label>
+            </div>
+
+            <!-- Nombre del Entrenamiento -->
+            <div class="form-group small">
+              <input nbInput id="trainingName" placeholder=" " formControlName="bulletinID" />
+              <label for="trainingName">Id del Entrenamiento</label>
+            </div>
+
+            <!-- Fecha -->
+            <div class="form-group small">
+              <input nbInput type="date" id="date" placeholder=" " formControlName="date" />
+              <label for="date">Fecha</label>
+            </div>
+
+            <!-- Área -->
+            <div class="form-group small">
+              <input nbInput id="area" placeholder=" " formControlName="area" />
+              <label for="area">Área</label>
+            </div>
+
+            <!-- Nombre del Empleado -->
+            <div class="form-group small">
+              <input nbInput id="employeeName" placeholder=" " formControlName="employeeName" />
+              <label for="employeeName">Nombre del Empleado</label>
+            </div>
+
+            <!-- Turno -->
+            <div class="form-group small">
+              <input nbInput id="shift" placeholder=" " formControlName="shift" />
+              <label for="shift">Turno</label>
+            </div>
+
+            <!-- Supervisor -->
+            <div class="form-group small">
+              <input nbInput id="supervisor" placeholder=" " formControlName="supervisor" />
+              <label for="supervisor">Supervisor</label>
+            </div>
+          </div>
+
+          
+
+          <!-- Submit -->
+          <div class="form-row justify-end">
+            <button nbButton status="success" type="submit">Guardar</button>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+
+    <nb-card>
+  <nb-card-body>
+    <div class="search-wrapper">
+  <div class="form-group search">
+    <input nbInput type="text" id="search" placeholder=" " [(ngModel)]="searchBulletinId" (ngModelChange)="onSearchTrainingByBulletin()" name="search" >
+    <label for="search">Buscar Boletin:</label>
+  </div>
+</div>
+
+
+    
+    <ng2-smart-table [settings]="TrainingQA" [source]="sourceTab" class="Tabla"></ng2-smart-table>
+  </nb-card-body>
 </nb-card>
+  </div>
+  <!-- Columna derecha: Vista previa del boletín -->
+<div class="preview-column">
+  <div class="preview-header">Vista previa del boletín</div>
+
+  <!-- Contenedor con zoom y arrastre -->
+  <div 
+    class="zoom-container"
+    #zoomContainer
+    (wheel)="onWheel($event)"
+    (mousedown)="startDragging($event)"
+    (mousemove)="onDragging($event)"
+    (mouseup)="stopDragging()"
+    (mouseleave)="stopDragging()"
+  >
+    <div class="zoom-content" [style.transform]="transform">
+      <app-modelo1 
+        *ngIf="selectedForm === 'form1'" 
+        [bulletinform]="bulletinform"
+        [detailsform]="detailsform"
+        [qualityPhotosBase64]="qualityPhotosBase64"
+        [defectPhotosBase64]="defectPhotosBase64"
+        (searchBoth)="onSearchBoth()"
+      ></app-modelo1>
+
+      <app-modelo2
+        *ngIf="selectedForm === 'form2'"
+        [bulletinform]="bulletinform"
+        [detailsform]="detailsform"
+        [qualityPhotosBase64]="qualityPhotosBase64"
+        [defectPhotosBase64]="defectPhotosBase64"
+        [qualityPhotosBase641]="qualityPhotosBase641"
+        [defectPhotosBase641]="defectPhotosBase641"
+        (searchBoth)="onSearchBoth()"
+      ></app-modelo2>
+    </div>
+  </div>
+</div>
+
+
+
+

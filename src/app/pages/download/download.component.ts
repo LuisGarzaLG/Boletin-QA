@@ -50,11 +50,16 @@ selectForm(form: string): void {
 }
 
 onBulletinIdInput(): void {
-  const inputValue = this.bulletinform.get('bulletinID')?.value;
+  const bulletinID = this.bulletinform.get('bulletinID')?.value;
 
-  // Si escribe algo y no hay boletín seleccionado, mostrar advertencia
-  this.showTemplateWarning = !!inputValue && !this.selectedForm;
+  if (bulletinID && bulletinID.trim().length >= 3) {
+    // Espera un poco para evitar buscar en cada tecla (opcional, puedes ajustar el tiempo)
+    setTimeout(() => {
+      this.onSearchBoth();
+    }, 300);
+  }
 }
+
 
 
   
@@ -107,7 +112,7 @@ onBulletinIdInput(): void {
         const BulletinData: CreateBulletinDto | null = await this.provider.GetBulletinBy(bulletinID);
         if (BulletinData) {
           this.bulletinData = BulletinData;
-          console.log('Datos del boletín recibidos:', BulletinData);
+          //console.log('Datos del boletín recibidos:', BulletinData);
   
           // Asignar valores al formulario
           this.bulletinform.patchValue({
@@ -136,7 +141,7 @@ onBulletinIdInput(): void {
         const DetailsData: Details | null = await this.provider.GetDetailsBy(bulletinID);
         if (DetailsData) {
           this.detailsData = DetailsData;
-          console.log('Datos de detalles:', DetailsData);
+          //console.log('Datos de detalles:', DetailsData);
   
           // Actualizar el formulario con los detalles
           this.detailsform.patchValue({
@@ -150,15 +155,15 @@ onBulletinIdInput(): void {
           // Aquí asignamos las fotos automáticamente si existen
           const photos = DetailsData?.photos;
           if (photos) {
-            console.log("Fotos recibidas:", photos);  // Depuración
+            //console.log("Fotos recibidas:", photos);  // Depuración
             if (photos.qualityPhotos) {
               this.qualityPhotosBase64 = `data:image/jpeg;base64,${photos.qualityPhotos}`;
-              console.log("Foto de calidad:", this.qualityPhotosBase64);  // Verifica la foto
+              //console.log("Foto de calidad:", this.qualityPhotosBase64);  // Verifica la foto
             }
   
             if (photos.defectPhotos) {
               this.defectPhotosBase64 = `data:image/jpeg;base64,${photos.defectPhotos}`;
-              console.log("Foto de defecto:", this.defectPhotosBase64);  // Verifica la foto
+              //console.log("Foto de defecto:", this.defectPhotosBase64);  // Verifica la foto
             }
           }
         } else {
@@ -183,28 +188,48 @@ if (MP && MP.length > 0) {
   if (firstPhoto) {
     if (firstPhoto.qualityPhotos) {
       this.qualityPhotosBase641 = `data:image/jpeg;base64,${firstPhoto.qualityPhotos}`;
-      console.log("Foto calidad MP:", this.qualityPhotosBase641);
+      //console.log("Foto calidad MP:", this.qualityPhotosBase641);
     }
     if (firstPhoto.defectPhotos) {
       this.defectPhotosBase641 = `data:image/jpeg;base64,${firstPhoto.defectPhotos}`;
-      console.log("Foto defecto MP:", this.defectPhotosBase641);
+      //console.log("Foto defecto MP:", this.defectPhotosBase641);
     }
   } else {
-    console.log("No se encontró ninguna foto válida en los datos recibidos");
+    //console.log("No se encontró ninguna foto válida en los datos recibidos");
   }
 } else {
-  console.log("No hay fotos adicionales disponibles");
+  //console.log("No hay fotos adicionales disponibles");
 }
+this.autoSelectFormBasedOnPhotos();
+
 
       } catch (error) {
-        console.error('Error al obtener los datos del boletín o detalles:', error);
+        //console.error('Error al obtener los datos del boletín o detalles:', error);
         await this.notificationService.info('Error al obtener los datos', 'Hubo un problema al obtener los datos o detalles del boletín.');
       }
     } else {
       await this.notificationService.info('Número de boletín inválido', 'Por favor, ingrese un número de boletín válido.');
     }
+    
   }
   
+private autoSelectFormBasedOnPhotos(): void {
+  let totalPhotos = 0;
+  if (this.qualityPhotosBase64) totalPhotos++;
+  if (this.defectPhotosBase64) totalPhotos++;
+  if (this.qualityPhotosBase641) totalPhotos++;
+  if (this.defectPhotosBase641) totalPhotos++;
+
+  if (!this.selectedForm) {
+    if (totalPhotos >= 0 && totalPhotos < 2) {
+      this.selectedForm = 'form1';
+    } else if (totalPhotos > 3) {
+      this.selectedForm = 'form2';
+    } else {
+      this.selectedForm = '';
+    }
+  }
+}
 
 
   private formatDate(date: string | Date): string {
@@ -944,7 +969,7 @@ setTimeout(() => {
   // No necesitamos cerrar la ventana de impresión aquí porque `onafterprint` lo manejará
 }, 700);
 } else {
-console.error("No se pudo abrir la ventana de impresión o no se encontró el formulario.");
+//console.error("No se pudo abrir la ventana de impresión o no se encontró el formulario.");
 }
 }
 
@@ -971,7 +996,7 @@ photoElements.forEach((photo) => {
 (photo as HTMLImageElement).src = '';
 });
 
-///console.log('Campos limpiados después de la impresión o cancelación.');
+//console.log('Campos limpiados después de la impresión o cancelación.');
 }
 
 }

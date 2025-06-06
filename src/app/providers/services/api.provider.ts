@@ -53,6 +53,23 @@ export class ApiService {
                 this.toastrProvider.Danger(ex.message);
             });
     }
+    //OBTENER UN STRING PLANO DE LA API
+    public async GetString<T>(endPoint: string): Promise<any> {
+    return this.http
+        .get<T>(`${env.apiUrl + endPoint}`, {
+            headers: this.httpHeaders.headers.append(
+                "Authorization",
+                "Bearer " + window.sessionStorage.getItem('token')
+            ),
+            responseType: 'text' as 'json',
+        })
+        .toPromise()
+        .then((data) => data)
+        .catch((ex) => {
+            this.toastrProvider.Danger(ex.message);
+        });
+}
+
     //Obtenerby
     public async GetById<T>(endPoint: string, id: any, param?: any): Promise<any> {
         return this.http

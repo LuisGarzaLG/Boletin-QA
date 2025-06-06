@@ -5,8 +5,8 @@
     <!-- Formulario para el boletín -->
     <form [formGroup]="bulletinform">
       <div class="input-row">
-        <div class="input-container">
-          <input type="text" nbInput formControlName="bulletinID" placeholder=" " class="form-control"/>
+        <div class="input-container">          
+          <input type="text" nbInput formControlName="bulletinID" placeholder=" "class="form-control" [value]="nextBulletinId" readonly>
           <label for="bulletinID" class="floating-label" #bulletinIDInput>Número de Boletín</label>
         </div>
 
@@ -22,7 +22,7 @@
 
         <div class="input-container">
           <input type="text" nbInput formControlName="failureName" placeholder=" " class="form-control"/>
-          <label for="failureName" class="floating-label">Modo de Fallo</label>
+          <label for="failureName" class="floating-label">Nombre de la  Falla</label>
         </div>
         <div class="input-container">
           <input type="date" nbInput formControlName="startDate" placeholder=" " class="form-control"/>
@@ -77,12 +77,12 @@
     
         <div class="input-container-2">
           <textarea nbInput formControlName="actions" placeholder=" " class="form-control-2"></textarea>
-          <label for="actions" class="floating-label">Acciones</label>
+          <label for="actions" class="floating-label">Acciones Inmediatas</label>
         </div>
     
         <div class="input-container-2">
           <textarea nbInput formControlName="reworkDetails" placeholder=" " class="form-control-2"></textarea>
-          <label for="reworkDetails" class="floating-label">Detalles de ReTrabajo</label>
+          <label for="reworkDetails" class="floating-label">Detalles del Retrabajo</label>
         </div>
 
         <!-- Foto de calidad (aceptable) -->

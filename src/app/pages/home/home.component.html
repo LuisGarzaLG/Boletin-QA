@@ -1,6 +1,6 @@
 <nb-tabset>
   <!-- Primer Tab: Bulletin QA -->
-  <nb-tab tabTitle="Bulletin QA">
+  <nb-tab tabTitle="Boletines Activos">
     <div class="button-container">
       <button *ngIf="userRoles.includes('BulletinQA')" class="btn btn-primary" (click)="exportToExcel(sourceTab, 'Boletines Activos')"> Descargar Excel</button>
     </div>
@@ -12,7 +12,7 @@
   </nb-tab>
 
   <!-- Segundo Tab: Boletines Vencidos -->
-  <nb-tab tabTitle="expired bulletin">
+  <nb-tab tabTitle="Boletines expirados">
     <div class="button-container">
       <button *ngIf="userRoles.includes('BulletinQA')" class="btn btn-primary" (click)="exportToExcel(sourceTabVencidos, 'Boletines Vencidos')"> Descargar Excel</button>
     </div>

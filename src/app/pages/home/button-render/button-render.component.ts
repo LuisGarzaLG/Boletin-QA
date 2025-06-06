@@ -10,7 +10,7 @@ export class ButtonRenderComponent {
   @Output() save = new EventEmitter<any>(); // <- CAMBIADO a 'save'
 
   showDetails() {
-    console.log('Detalles:', this.rowData);
+    //console.log('Detalles:', this.rowData);
     this.save.emit(this.rowData); // <- EMITE como 'save'
   }
 }
