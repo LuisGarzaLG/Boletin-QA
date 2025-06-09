@@ -430,6 +430,15 @@ mainSheet.getRow(5).values = mainSheet.columns.map(col => col.header as ExcelJS.
     };
 
     // === 6. GUARDAR ARCHIVO ===
+    const lastRow = mainSheet.rowCount + 2;
+mainSheet.mergeCells(`A${lastRow}:K${lastRow + 2}`);
+const footerCell = mainSheet.getCell(`A${lastRow}`);
+footerCell.value =
+  'Note: The controlled version of this document is maintained as part of Landis+Gyr’s IMS System, and can be accessed on-line. Once it is downloaded, this document is considered uncontrolled and, therefore, before use, should always be compared with the controlled version in order to ensure that the content is up-to-date. Form Template CQ-T-003 Revision 7.';
+footerCell.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+footerCell.font = { italic: true, size: 10 };
+
+    // === 6. GUARDAR ARCHIVO ===
     const buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob([buffer], {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'

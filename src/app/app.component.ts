@@ -69,12 +69,12 @@ export class AppComponent implements OnInit, OnDestroy {
               link: '/pages/delete',
               roles:['BulletinQA']
             },
-            {
+            /*{
               title: 'Entrenamientos',
               icon: 'checkmark-square-outline',
               link: '/pages/training',
               roles:['BulletinQA']
-            }
+            }*/
           ]
         },
         {

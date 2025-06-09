@@ -33,7 +33,7 @@ export class AddComponent {
   qualityPhotosBase641: string | null = null;
   defectPhotosBase641: string | null = null;
   imagePreviews: any = { qualityPhotos: '', defectPhotos: '' };
-  areas: string[] = ['F-AX1', 'F-AX2', 'F-AX3', 'F-AX4', 'BPA-1', 'BPA-2', 'BPA-3', 'Reflash', 'Network', 'S4X', 'COE', 'SRL', 'LCS', 'Incoming', 'PSC', 'Residencial', 'o	C&I', 'Residencial - C&I', 'Embarques'];
+  areas: string[] = ['F-AX1', 'F-AX2', 'F-AX3', 'F-AX4', 'BPA-1', 'BPA-2', 'BPA-3', 'Reflash', 'Network', 'S4X', 'COE', 'SRL', 'LCS', 'Incoming', 'PSC', 'Residencial', 'o	C&I', 'Residencial - C&I', 'Embarques','BPA', 'Sub Assembly 1CT', 'Sub Assembly RA'];
   selectedArea: string = '';
 
   constructor(
@@ -101,11 +101,6 @@ export class AddComponent {
   }
 
 
-  // --- EL RESTO DE TU CÓDIGO ---
-
-  onSelectChange(): void {
-    // Puedes agregar lógica si cambias el área
-  }
 
   async onSubmit(): Promise<void> {
     if (!this.bulletinform.valid || !this.detailsform.valid || !this.photoupload.valid) {
